@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoSys Group – Robotic Systems at University of Catania</title>
-    <link rel="icon" type="image/x-icon" href="icons/gs.ico">
+    <link rel="icon" type="image/x-icon" href="gallery/favicon.ico">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
@@ -16,102 +16,156 @@
         }
 
         html { scroll-behavior: smooth; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; color: var(--text); line-height: 1.6; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; color: var(--text); line-height: 1.6; background-color: var(--bg); }
 
-        /* Header in stile RobotiXX */
-        header { 
-            background: var(--primary); 
-            color: white; 
-            padding: 60px 20px; 
-            text-align: center; 
-            background-image: linear-gradient(rgba(0,33,71,0.8), rgba(0,33,71,0.8)), url('gallery/lab_bg.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        header h1 { margin: 0; font-size: 3rem; letter-spacing: 2px; }
-        header p { font-size: 1.2rem; opacity: 0.9; }
-
+        /* Navigation: Blu con scritte bianche */
         nav {
-            background: white;
+            background: var(--primary);
             padding: 15px 0;
             position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 2000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
         }
-        nav a { margin: 0 15px; text-decoration: none; font-weight: bold; color: var(--primary); text-transform: uppercase; font-size: 0.85rem; }
-        nav a:hover { color: var(--accent); }
+        nav a { 
+            margin: 0 15px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            color: white; 
+            text-transform: uppercase; 
+            font-size: 0.85rem; 
+            transition: opacity 0.3s;
+        }
+        nav a:hover { opacity: 0.7; }
+
+        /* Header COMPLETAMENTE BIANCO */
+        header { 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 40px 8%;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-text-section {
+            flex: 2;
+            text-align: left;
+        }
+
+        .header-text-section h1 { 
+            margin: 0; 
+            font-size: 2.8rem; 
+            letter-spacing: 2px; 
+            color: var(--primary); 
+        }
+        .header-text-section p { 
+            margin: 5px 0 0; 
+            color: var(--text);
+            font-weight: 400;
+        }
+
+        .header-logo-section {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .header-logo-section img {
+            max-height: 110px;
+            width: auto;
+        }
+
+        /* Gallery Slider */
+        .gallery-container {
+            position: relative;
+            max-width: 1100px;
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background: #000;
+        }
+        .slides { 
+            display: flex; 
+            transition: transform 0.6s cubic-bezier(0.45, 0, 0.55, 1); 
+        }
+        .slide { 
+            min-width: 100%; 
+            height: 550px; 
+            object-fit: cover; 
+            display: block;
+        }
+
+        .prev, .next {
+            position: absolute; 
+            top: 50%; 
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2); 
+            backdrop-filter: blur(5px);
+            color: white; 
+            padding: 20px;
+            cursor: pointer; 
+            border: none; 
+            font-size: 24px; 
+            z-index: 10;
+            transition: background 0.3s;
+            border-radius: 50%;
+            margin: 0 15px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .next { right: 0; } 
+        .prev { left: 0; }
 
         section { max-width: 1100px; margin: 60px auto; padding: 0 20px; }
-        h2 { font-size: 2rem; border-left: 5px solid var(--primary); padding-left: 15px; margin-bottom: 30px; color: var(--primary); }
+        h2 { font-size: 2rem; border-left: 5px solid var(--primary); padding-left: 15px; color: var(--primary); margin-bottom: 25px; }
 
-        /* Team Grid */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        .team-card { text-align: center; background: var(--light-bg); padding: 20px; border-radius: 8px; transition: transform 0.3s; }
-        .team-card:hover { transform: translateY(-5px); }
-        .team-card img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid white; }
-        .team-card h3 { margin: 10px 0 5px; font-size: 1.1rem; }
-        .team-card p { font-size: 0.9rem; color: #666; margin: 0; }
-
-        /* Pubblicazioni e News */
-        .news-item { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .news-date { font-weight: bold; color: var(--accent); margin-right: 10px; }
-
-        /* Footer */
         footer { background: var(--primary); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
-        .footer-logos img { height: 50px; margin: 0 20px; filter: brightness(0) invert(1); }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
-            .team-grid { grid-template-columns: 1fr 1fr; }
+            header { flex-direction: column; text-align: center; padding: 30px 20px; }
+            .header-text-section { text-align: center; margin-bottom: 20px; }
+            .header-logo-section { justify-content: center; }
+            .slide { height: 350px; }
+            nav a { margin: 0 7px; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
+<nav>
+    <a href="index.html">Home</a>
+    <a href="team.html">Team</a>
+    <a href="robots.html">Robots</a>
+    <a href="lab.html">Lab</a>
+    <a href="publications.html">Publications</a>
+</nav>
+
 <header>
-    <h1>RoSys Group</h1>
-    <p>Robotic Systems & Autonomous Navigation Lab</p>
-    <p style="font-size: 1rem;">University of Catania - DIEEI</p>
+    <div class="header-text-section">
+        <h1>RoSys Group</h1>
+        <p>Robotic Systems & Autonomous Navigation Lab</p>
+        <p style="font-size: 0.95rem; opacity: 0.8;">University of Catania - DIEEI</p>
+    </div>
+    <div class="header-logo-section">
+        <img src="gallery/RoSys.png" alt="RoSys Logo">
+    </div>
 </header>
 
-<nav>
-    <a href="#about">About</a>
-    <a href="#research">Research</a>
-    <a href="#team">Team</a>
-    <a href="#publications">Publications</a>
-    <a href="#news">News</a>
-    <a href="#contact">Contact</a>
-</nav>
+<div class="gallery-container">
+    <div class="slides" id="gallery-slides"></div>
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+</div>
 
 <section id="about">
     <h2>About the Lab</h2>
-    <div id="about-content"></div> </section>
-
-<section id="research" style="background: var(--light-bg); padding: 60px 20px; width: 100%; box-sizing: border-box;">
-    <div style="max-width: 1100px; margin: 0 auto;">
-        <h2>Research Areas</h2>
-        <div id="research-content"></div> </div>
-</section>
-
-<section id="team">
-    <h2>Our Team</h2>
-    <div class="team-grid" id="team-content"></div>
-</section>
-
-<section id="publications">
-    <h2>Recent Publications</h2>
-    <div id="journal-content"></div>
-    <div id="conference-content"></div>
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="https://scholar.google.it/citations?user=ZBhhWt0AAAAJ" class="lab-link" target="_blank">View all on Google Scholar →</a>
-    </div>
+    <div id="about-content"></div> 
 </section>
 
 <section id="news">
@@ -120,14 +174,33 @@
 </section>
 
 <footer>
-    <div class="footer-logos">
-        <img src="gallery/RoSys.png" alt="RoSys Logo">
-        </div>
-    <p style="margin-top: 20px;">&copy; 2025 RoSys Group - University of Catania. All rights reserved.</p>
+    <p>&copy; 2026 RoSys Group - University of Catania. All rights reserved.</p>
 </footer>
 
 <script>
-    // Funzione per caricare i file Markdown
+    const totalImages = 15;
+    const slidesContainer = document.getElementById('gallery-slides');
+    let currentSlide = 0;
+
+    function initGallery() {
+        for (let i = 1; i <= totalImages; i++) {
+            const img = document.createElement('img');
+            img.src = `gallery/image${i}.jpg`;
+            img.className = 'slide';
+            img.onerror = function() { this.remove(); };
+            slidesContainer.appendChild(img);
+        }
+    }
+
+    function moveSlide(n) {
+        const slides = document.querySelectorAll('.slide');
+        if (slides.length === 0) return;
+        currentSlide = (currentSlide + n + slides.length) % slides.length;
+        slidesContainer.style.transform = `translateX(${-currentSlide * 100}%)`;
+    }
+
+    setInterval(() => moveSlide(1), 6000);
+
     async function loadMD(id, file) {
         try {
             const r = await fetch(file);
@@ -138,46 +211,9 @@
         } catch (e) { console.error(e); }
     }
 
-    // Caricamento Team da JSON
-    async function loadTeam() {
-        try {
-            const r = await fetch('content/team.json');
-            const team = await r.json();
-            const container = document.getElementById('team-content');
-            team.forEach(m => {
-                container.innerHTML += `
-                    <div class="team-card">
-                        <a href="${m.link}" style="text-decoration:none; color:inherit;">
-                            <img src="${m.image}" alt="${m.name}" onerror="this.src='icons/gs.png'">
-                            <h3>${m.name}</h3>
-                            <p>${m.role}</p>
-                        </a>
-                    </div>`;
-            });
-        } catch (e) { console.error(e); }
-    }
-
-    // Riutilizziamo la tua funzione dei papers
-    async function loadPapers() {
-        try {
-            const r = await fetch('content/papers.json');
-            const papers = await r.json();
-            const categories = { journal: 'journal-content', conference: 'conference-content' };
-            papers.slice(0, 5).forEach(p => { // Mostriamo solo i primi 5 più recenti
-                const container = document.getElementById(categories[p.type]);
-                if(container) {
-                    container.innerHTML += `<p style="font-size:0.9rem; margin-bottom:10px;">• ${p.authors} - <strong>${p.title}</strong>, <em>${p.venue}</em></p>`;
-                }
-            });
-        } catch (e) { console.error(e); }
-    }
-
-    // Inizializzazione
+    initGallery();
     loadMD("about-content", "content/about.md");
-    loadMD("research-content", "content/research.md");
     loadMD("news-content", "content/news.md");
-    loadTeam();
-    loadPapers();
 </script>
 
 </body>
