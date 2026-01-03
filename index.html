@@ -41,7 +41,7 @@
         }
         nav a:hover { color: #bdc3c7; }
 
-        /* Header con About */
+        /* Header con About e Logo Centrato Verticalmente */
         header { 
             background: white;
             padding: 60px 0; 
@@ -55,7 +55,7 @@
             max-width: var(--max-width);
             padding: 0 20px;
             display: flex;
-            align-items: flex-start;
+            align-items: center; /* CENTRA IL LOGO VERTICALMENTE RISPETTO AL TESTO */
             justify-content: space-between;
             gap: 50px;
         }
@@ -65,7 +65,7 @@
             margin: 0 0 15px 0; 
             font-size: 3rem; 
             color: var(--primary); 
-            line-height: 1;
+            line-height: 1.1;
         }
         
         .header-about-text {
@@ -79,6 +79,7 @@
         .header-logo-section img {
             max-height: 160px; 
             width: auto;
+            display: block;
         }
 
         /* Gallery Slider - Altezza 450px */
@@ -189,7 +190,6 @@
 
     setInterval(() => moveSlide(1), 6000);
 
-    // Carica da cartella "contents"
     async function loadMD(id, file) {
         try {
             const r = await fetch(`contents/${file}`);
