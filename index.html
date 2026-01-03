@@ -12,13 +12,13 @@
             --accent: #0056b3;
             --bg: #ffffff;
             --text: #333;
-            --max-width: 1100px; /* Larghezza coerente per tutto il sito */
+            --max-width: 1100px;
         }
 
         html { scroll-behavior: smooth; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; color: var(--text); line-height: 1.6; background-color: var(--bg); }
 
-        /* Navigation: Spaziatura aumentata */
+        /* Navigation */
         nav {
             background: var(--primary);
             padding: 18px 0;
@@ -30,78 +30,95 @@
             color: rgba(255,255,255,0.3);
         }
         nav a { 
-            margin: 0 20px; /* Spaziatura aumentata tra le voci */
+            margin: 0 20px; 
             text-decoration: none; 
             font-weight: bold; 
             color: white; 
             text-transform: uppercase; 
             font-size: 0.85rem; 
-            letter-spacing: 1px; /* Più respiro al testo */
-            transition: opacity 0.3s;
+            letter-spacing: 1px;
+            transition: color 0.3s;
         }
-        nav a:hover { opacity: 0.7; }
+        nav a:hover { color: #bdc3c7; }
 
-        /* Header Allineato alla colonna centrale */
+        /* Header con About */
         header { 
             background: white;
-            padding: 40px 0; /* Padding verticale */
+            padding: 60px 0; 
             border-bottom: 1px solid #eee;
             display: flex;
-            justify-content: center; /* Centra il contenuto interno */
+            justify-content: center;
         }
 
         .header-content {
             width: 100%;
             max-width: var(--max-width);
-            padding: 0 20px; /* Margine di sicurezza laterale */
+            padding: 0 20px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
+            gap: 50px;
         }
 
         .header-text-section { flex: 2; text-align: left; }
-        .header-text-section h1 { margin: 0; font-size: 2.8rem; letter-spacing: 2px; color: var(--primary); }
-        .header-text-section p { margin: 5px 0 0; color: var(--text); font-weight: 400; }
+        .header-text-section h1 { 
+            margin: 0 0 15px 0; 
+            font-size: 3rem; 
+            color: var(--primary); 
+            line-height: 1;
+        }
+        
+        .header-about-text {
+            font-size: 1.1rem;
+            color: #444;
+            max-width: 750px;
+            text-align: justify;
+        }
 
         .header-logo-section { flex: 1; display: flex; justify-content: flex-end; }
         .header-logo-section img {
-            max-height: 140px; 
+            max-height: 160px; 
             width: auto;
         }
 
-        /* Gallery Slider */
+        /* Gallery Slider - Altezza 450px */
         .gallery-container {
             position: relative;
             max-width: var(--max-width);
             margin: 40px auto;
             overflow: hidden;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            background: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: #f0f0f0;
         }
         .slides { display: flex; transition: transform 0.6s cubic-bezier(0.45, 0, 0.55, 1); }
-        .slide { min-width: 100%; height: 550px; object-fit: cover; }
+        .slide { 
+            min-width: 100%; 
+            height: 450px; 
+            object-fit: cover; 
+        }
 
         .prev, .next {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(255,255,255,0.2); backdrop-filter: blur(5px);
-            color: white; padding: 20px; cursor: pointer; border: none; 
-            font-size: 24px; z-index: 10; border-radius: 50%;
-            width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.4); backdrop-filter: blur(5px);
+            color: var(--primary); padding: 15px; cursor: pointer; border: none; 
+            font-size: 20px; z-index: 10; border-radius: 50%;
+            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
         }
         .next { right: 15px; } .prev { left: 15px; }
 
         /* Sections */
         section { max-width: var(--max-width); margin: 60px auto; padding: 0 20px; }
-        h2 { font-size: 2rem; border-left: 5px solid var(--primary); padding-left: 15px; color: var(--primary); margin-bottom: 25px; }
+        h2 { font-size: 2.2rem; border-left: 6px solid var(--primary); padding-left: 20px; color: var(--primary); margin-bottom: 30px; }
 
         footer { background: var(--primary); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
 
-        @media (max-width: 768px) {
-            .header-content { flex-direction: column; text-align: center; }
+        @media (max-width: 900px) {
+            .header-content { flex-direction: column-reverse; text-align: center; align-items: center; }
             .header-text-section { text-align: center; }
-            .header-logo-section { justify-content: center; margin-top: 20px; }
-            .slide { height: 350px; }
+            .header-about-text { text-align: center; }
+            .header-logo-section { justify-content: center; margin-bottom: 30px; }
+            .slide { height: 320px; }
             nav a { margin: 0 10px; font-size: 0.75rem; }
             nav span { display: none; }
         }
@@ -123,9 +140,9 @@
     <div class="header-content">
         <div class="header-text-section">
             <h1>RoSys Group</h1>
-            <p>Robotic Systems Group </p>
-            <p style="font-size: 0.95rem; opacity: 0.8;">University of Catania - 
-                <a class="lab-link" href="https://www.dieei.unict.it/en">DIEEI</a></p>
+            <div class="header-about-text">
+                The <strong>Robotic Systems Group</strong>, led by <strong>Prof. Giovanni Muscato</strong>, belongs to the Department of Electrical, Electronic and Computer Engineering (DIEEI) of the University of Catania. We boast long-standing experience in applied research for robotic systems, ranging from industrial manipulators to advanced aerial and land mobile platforms. Our core focus lies in the coordination of heterogeneous fleets and the development of intelligent autonomous navigation for robots in hostile environments.
+            </div>
         </div>
         <div class="header-logo-section">
             <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
@@ -138,11 +155,6 @@
     <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
     <button class="next" onclick="moveSlide(1)">&#10095;</button>
 </div>
-
-<section id="about">
-    <h2>About the Lab</h2>
-    <div id="about-content"></div> 
-</section>
 
 <section id="news">
     <h2>Latest News</h2>
@@ -177,9 +189,10 @@
 
     setInterval(() => moveSlide(1), 6000);
 
+    // Carica da cartella "contents"
     async function loadMD(id, file) {
         try {
-            const r = await fetch(file);
+            const r = await fetch(`contents/${file}`);
             if (r.ok) {
                 const text = await r.text();
                 document.getElementById(id).innerHTML = marked.parse(text);
@@ -188,8 +201,7 @@
     }
 
     initGallery();
-    loadMD("about-content", "content/about.md");
-    loadMD("news-content", "content/news.md");
+    loadMD("news-content", "news.md");
 </script>
 
 </body>
