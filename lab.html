@@ -32,7 +32,15 @@
         .gallery-caption { padding: 12px; font-size: 0.85rem; color: #666; text-align: center; border-top: 1px solid #f0f0f0; background: white; }
 
         /* Media Section (Video & Map) */
-        .lab-media-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
+        .lab-media-section { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 40px; 
+            margin-top: 50px; 
+        }
+        /* Classe per quando il video è assente: la mappa prende tutto lo spazio */
+        .lab-media-section.full-width { grid-template-columns: 1fr; }
+
         .media-box h3 { color: var(--primary); margin-bottom: 15px; border-left: 4px solid var(--accent); padding-left: 10px; font-size: 1.4rem; }
         
         .address-text { font-size: 0.95rem; color: #555; margin-bottom: 15px; min-height: 1.5em; }
@@ -45,7 +53,7 @@
         footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
 
         @media (max-width: 900px) {
-            .lab-media-section { grid-template-columns: 1fr; }
+            .lab-media-section { grid-template-columns: 1fr !important; }
             .header-content { flex-direction: column-reverse; text-align: center; }
         }
     </style>
@@ -77,11 +85,10 @@
 <div class="container">
     <div id="lab-intro" class="lab-intro"></div>
     
-    <div class="lab-gallery" id="lab-gallery">
-        </div>
+    <div class="lab-gallery" id="lab-gallery"></div>
 
-    <div class="lab-media-section">
-        <div class="media-box">
+    <div class="lab-media-section" id="media-section">
+        <div class="media-box" id="video-box">
             <h3>Lab Video Tour</h3>
             <div class="address-text">See our research environment in action.</div>
             <div class="responsive-iframe">
@@ -89,7 +96,7 @@
             </div>
         </div>
 
-        <div class="media-box">
+        <div class="media-box" id="map-box">
             <h3>Find Us</h3>
             <div id="address-container" class="address-text"></div>
             <div class="responsive-iframe">
@@ -107,22 +114,32 @@
             const response = await fetch('contents/lab.json');
             const data = await response.json();
 
-            // Description
+            // 1. Descrizione
             document.getElementById('lab-intro').innerText = data.description;
             
-            // Video & Map URLs
-            if(data.video_url) document.getElementById('lab-video').src = data.video_url;
-            if(data.location_embed) document.getElementById('lab-map').src = data.location_embed;
+            // 2. Gestione Video (Mostra/Nascondi)
+            const videoBox = document.getElementById('video-box');
+            const mediaSection = document.getElementById('media-section');
+            
+            if (data.video_url && data.video_url !== "" && data.video_url !== "#") {
+                document.getElementById('lab-video').src = data.video_url;
+            } else {
+                videoBox.style.display = 'none'; // Nasconde il box video
+                mediaSection.classList.add('full-width'); // La mappa occupa tutto lo spazio
+            }
 
-            // Address Display
-            if(data.address) {
+            // 3. Mappa e Indirizzo
+            if (data.location_embed) {
+                document.getElementById('lab-map').src = data.location_embed;
+            }
+            if (data.address) {
                 document.getElementById('address-container').innerHTML = 
                     `<strong>Location:</strong> ${data.address}, ${data.cap} ${data.city} (${data.country})`;
             }
 
-            // Gallery Loading
+            // 4. Galleria
             const gallery = document.getElementById('lab-gallery');
-            if(data.gallery) {
+            if (data.gallery) {
                 data.gallery.forEach(img => {
                     gallery.innerHTML += `
                         <div class="gallery-item">
