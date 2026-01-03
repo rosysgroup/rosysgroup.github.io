@@ -41,7 +41,7 @@
         }
         nav a:hover { color: #bdc3c7; }
 
-        /* Header con About e Logo Centrato Verticalmente */
+        /* Header con About dinamico */
         header { 
             background: white;
             padding: 60px 0; 
@@ -55,7 +55,7 @@
             max-width: var(--max-width);
             padding: 0 20px;
             display: flex;
-            align-items: center; /* CENTRA IL LOGO VERTICALMENTE RISPETTO AL TESTO */
+            align-items: center; 
             justify-content: space-between;
             gap: 50px;
         }
@@ -68,11 +68,23 @@
             line-height: 1.1;
         }
         
-        .header-about-text {
+        /* Area dove apparirà il testo di about.md */
+        #header-about-content {
             font-size: 1.1rem;
             color: #444;
             max-width: 750px;
             text-align: justify;
+            transition: opacity 0.5s;
+        }
+
+        /* Stile per i link caricati dal Markdown */
+        #header-about-content a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        #header-about-content a:hover {
+            text-decoration: underline;
         }
 
         .header-logo-section { flex: 1; display: flex; justify-content: flex-end; }
@@ -82,7 +94,7 @@
             display: block;
         }
 
-        /* Gallery Slider - Altezza 450px */
+        /* Gallery Slider */
         .gallery-container {
             position: relative;
             max-width: var(--max-width);
@@ -117,7 +129,6 @@
         @media (max-width: 900px) {
             .header-content { flex-direction: column-reverse; text-align: center; align-items: center; }
             .header-text-section { text-align: center; }
-            .header-about-text { text-align: center; }
             .header-logo-section { justify-content: center; margin-bottom: 30px; }
             .slide { height: 320px; }
             nav a { margin: 0 10px; font-size: 0.75rem; }
@@ -141,9 +152,7 @@
     <div class="header-content">
         <div class="header-text-section">
             <h1>RoSys Group</h1>
-            <div class="header-about-text">
-                The <strong>Robotic Systems Group</strong>, led by <strong>Prof. Giovanni Muscato</strong>, belongs to the Department of Electrical, Electronic and Computer Engineering (DIEEI) of the University of Catania. We boast long-standing experience in applied research for robotic systems, ranging from industrial manipulators to advanced aerial and land mobile platforms. Our core focus lies in the coordination of heterogeneous fleets and the development of intelligent autonomous navigation for robots in hostile environments.
-            </div>
+            <div id="header-about-content" style="opacity: 0;"></div>
         </div>
         <div class="header-logo-section">
             <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
@@ -163,7 +172,7 @@
 </section>
 
 <footer>
-    <p>&copy; 2026 RoSys Group - University of Catania. All rights reserved.</p>
+    <p>&copy; 2026 RoSys Group - All rights reserved.</p>
 </footer>
 
 <script>
@@ -190,18 +199,23 @@
 
     setInterval(() => moveSlide(1), 6000);
 
+    // Funzione caricamento Markdown universale
     async function loadMD(id, file) {
         try {
             const r = await fetch(`contents/${file}`);
             if (r.ok) {
                 const text = await r.text();
-                document.getElementById(id).innerHTML = marked.parse(text);
+                const container = document.getElementById(id);
+                container.innerHTML = marked.parse(text);
+                container.style.opacity = "1"; // Mostra il testo una volta caricato
             }
-        } catch (e) { console.error(e); }
+        } catch (e) { console.error("Errore caricamento:", file, e); }
     }
 
+    // Esecuzione
     initGallery();
-    loadMD("news-content", "news.md");
+    loadMD("header-about-content", "about.md"); // Carica l'about nell'header
+    loadMD("news-content", "news.md");           // Carica le news nella sezione news
 </script>
 
 </body>
