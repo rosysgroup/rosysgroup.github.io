@@ -75,11 +75,12 @@
             max-width: 750px;
             margin-top: 5px;
             display: -webkit-box;
-            -webkit-line-clamp: 2; /* Limita le righe nell'header compatto */
+            -webkit-line-clamp: 2; 
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
+        /* Logo Ingrandito come richiesto */
         .header-logo-section img {
             max-height: 110px; 
             width: auto;
@@ -116,18 +117,19 @@
         section { max-width: var(--max-width); margin: 60px auto; padding: 0 20px; }
         h2 { font-size: 2.2rem; border-left: 6px solid var(--primary); padding-left: 20px; color: var(--primary); margin-bottom: 30px; }
 
-        /* Footer Moderno */
+        /* Footer Moderno con Linkedin, Youtube, Instagram */
         footer { 
             background: var(--primary); color: white; padding: 40px 20px; 
             text-align: center; margin-top: 80px; 
         }
         .social-links { margin-bottom: 20px; }
         .social-links a { 
-            color: white; font-size: 1.5rem; margin: 0 15px; 
-            text-decoration: none; opacity: 0.8; transition: opacity 0.3s;
+            color: white; font-size: 1.6rem; margin: 0 15px; 
+            text-decoration: none; opacity: 0.8; transition: all 0.3s;
+            display: inline-block;
         }
-        .social-links a:hover { opacity: 1; color: var(--accent); }
-        .footer-credits { font-size: 0.9rem; opacity: 0.7; }
+        .social-links a:hover { opacity: 1; color: var(--accent); transform: translateY(-3px); }
+        .footer-credits { font-size: 0.9rem; opacity: 0.7; letter-spacing: 1px; }
 
         @media (max-width: 900px) {
             header { height: auto; padding: 20px 0; }
@@ -176,7 +178,7 @@
     <div class="social-links">
         <a href="https://www.linkedin.com/company/tuo-profilo" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
         <a href="https://www.youtube.com/tuo-canale" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://github.com/tuo-github" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/tuo-profilo" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="mailto:tuamail@esempio.com" title="Email"><i class="fas fa-envelope"></i></a>
     </div>
     <div class="footer-credits">
@@ -193,7 +195,7 @@
     function initGallery() {
         for (let i = 1; i <= totalImages; i++) {
             const img = document.createElement('img');
-            img.src = `gallery/images/image${i}.jpg`; // Percorso modificato qui
+            img.src = `gallery/images/image${i}.jpg`; 
             img.className = 'slide';
             img.onerror = function() { this.remove(); };
             slidesContainer.appendChild(img);
