@@ -63,12 +63,12 @@
         .member-top-row {
             display: flex;
             align-items: center;
-            gap: 25px; /* Aumentato lo spazio tra foto e nome */
+            gap: 25px; 
             margin-bottom: 15px;
         }
 
         .photo-wrapper {
-            flex: 0 0 160px; /* Foto raddoppiata a 160px */
+            flex: 0 0 160px; 
             aspect-ratio: 1 / 1;
             overflow: hidden;
             border-radius: 8px;
@@ -81,7 +81,7 @@
         .member-name { font-weight: bold; font-size: 1.3rem; color: #000; margin: 0; line-height: 1.2; }
         .member-role { font-size: 1rem; color: #666; margin-top: 5px; }
         
-        /* Riga inferiore: Links (allineata sotto la foto e il nome) */
+        /* Riga inferiore: Links */
         .member-links { 
             display: flex; 
             gap: 20px; 
@@ -105,7 +105,7 @@
             .team-grid { grid-template-columns: 1fr; }
             .header-content { flex-direction: column-reverse; text-align: center; }
             .member-top-row { gap: 20px; }
-            .photo-wrapper { flex: 0 0 130px; } /* Leggermente più piccola su mobile */
+            .photo-wrapper { flex: 0 0 130px; }
         }
     </style>
 </head>
@@ -133,8 +133,7 @@
     </div>
 </header>
 
-<div class="container" id="team-sections-container">
-    </div>
+<div class="container" id="team-sections-container"></div>
 
 <footer><p>&copy; 2026 RoSys Group - University of Catania</p></footer>
 
@@ -143,6 +142,7 @@
         "Head of the lab",
         "Associate & Assistant professors",
         "Research fellows",
+        "Engineers",
         "PhD Students",
         "Alumni"
     ];
