@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RoSys Group – Robotic Systems at University of Catania</title>
+    <title>RoSys Group – Robotic Systems</title>
     <link rel="icon" type="image/png" href="gallery/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
@@ -25,9 +26,7 @@
             position: sticky;
             top: 0;
             z-index: 2000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
-            color: rgba(255,255,255,0.3);
         }
         nav a { 
             margin: 0 20px; 
@@ -41,13 +40,15 @@
         }
         nav a:hover { color: #bdc3c7; }
 
-        /* Header con About dinamico */
+        /* Header COMPATTO (Stile Lab/Robots/Team) */
         header { 
             background: white;
-            padding: 60px 0; 
+            padding: 5px 0; 
             border-bottom: 1px solid #eee;
             display: flex;
             justify-content: center;
+            height: 120px;
+            align-items: center;
         }
 
         .header-content {
@@ -57,39 +58,30 @@
             display: flex;
             align-items: center; 
             justify-content: space-between;
-            gap: 50px;
+            gap: 30px;
         }
 
         .header-text-section { flex: 2; text-align: left; }
         .header-text-section h1 { 
-            margin: 0 0 15px 0; 
-            font-size: 3rem; 
+            margin: 0; 
+            font-size: 2.2rem; 
             color: var(--primary); 
             line-height: 1.1;
         }
         
-        /* Area dove apparirà il testo di about.md */
         #header-about-content {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #444;
             max-width: 750px;
-            text-align: justify;
-            transition: opacity 0.5s;
+            margin-top: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Limita le righe nell'header compatto */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        /* Stile per i link caricati dal Markdown */
-        #header-about-content a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        #header-about-content a:hover {
-            text-decoration: underline;
-        }
-
-        .header-logo-section { flex: 1; display: flex; justify-content: flex-end; }
         .header-logo-section img {
-            max-height: 160px; 
+            max-height: 110px; 
             width: auto;
             display: block;
         }
@@ -124,15 +116,24 @@
         section { max-width: var(--max-width); margin: 60px auto; padding: 0 20px; }
         h2 { font-size: 2.2rem; border-left: 6px solid var(--primary); padding-left: 20px; color: var(--primary); margin-bottom: 30px; }
 
-        footer { background: var(--primary); color: white; padding: 40px 20px; text-align: center; margin-top: 80px; }
+        /* Footer Moderno */
+        footer { 
+            background: var(--primary); color: white; padding: 40px 20px; 
+            text-align: center; margin-top: 80px; 
+        }
+        .social-links { margin-bottom: 20px; }
+        .social-links a { 
+            color: white; font-size: 1.5rem; margin: 0 15px; 
+            text-decoration: none; opacity: 0.8; transition: opacity 0.3s;
+        }
+        .social-links a:hover { opacity: 1; color: var(--accent); }
+        .footer-credits { font-size: 0.9rem; opacity: 0.7; }
 
         @media (max-width: 900px) {
-            .header-content { flex-direction: column-reverse; text-align: center; align-items: center; }
-            .header-text-section { text-align: center; }
-            .header-logo-section { justify-content: center; margin-bottom: 30px; }
+            header { height: auto; padding: 20px 0; }
+            .header-content { flex-direction: column-reverse; text-align: center; }
+            .header-logo-section { margin-bottom: 15px; }
             .slide { height: 320px; }
-            nav a { margin: 0 10px; font-size: 0.75rem; }
-            nav span { display: none; }
         }
     </style>
 </head>
@@ -152,7 +153,7 @@
     <div class="header-content">
         <div class="header-text-section">
             <h1>RoSys Group</h1>
-            <div id="header-about-content" style="opacity: 0;"></div>
+            <div id="header-about-content"></div>
         </div>
         <div class="header-logo-section">
             <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
@@ -172,10 +173,19 @@
 </section>
 
 <footer>
-    <p>&copy; 2026 RoSys Group - All rights reserved.</p>
+    <div class="social-links">
+        <a href="https://www.linkedin.com/company/tuo-profilo" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/tuo-canale" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://github.com/tuo-github" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:tuamail@esempio.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+    <div class="footer-credits">
+        &copy; 2026 RoSys Group - All Rights Reserved
+    </div>
 </footer>
 
 <script>
+    // Percorso immagini aggiornato: gallery/images/imageX.jpg
     const totalImages = 15;
     const slidesContainer = document.getElementById('gallery-slides');
     let currentSlide = 0;
@@ -183,7 +193,7 @@
     function initGallery() {
         for (let i = 1; i <= totalImages; i++) {
             const img = document.createElement('img');
-            img.src = `gallery/image${i}.jpg`;
+            img.src = `gallery/images/image${i}.jpg`; // Percorso modificato qui
             img.className = 'slide';
             img.onerror = function() { this.remove(); };
             slidesContainer.appendChild(img);
@@ -199,7 +209,6 @@
 
     setInterval(() => moveSlide(1), 6000);
 
-    // Funzione caricamento Markdown universale
     async function loadMD(id, file) {
         try {
             const r = await fetch(`contents/${file}`);
@@ -207,15 +216,13 @@
                 const text = await r.text();
                 const container = document.getElementById(id);
                 container.innerHTML = marked.parse(text);
-                container.style.opacity = "1"; // Mostra il testo una volta caricato
             }
         } catch (e) { console.error("Errore caricamento:", file, e); }
     }
 
-    // Esecuzione
     initGallery();
-    loadMD("header-about-content", "about.md"); // Carica l'about nell'header
-    loadMD("news-content", "news.md");           // Carica le news nella sezione news
+    loadMD("header-about-content", "about.md");
+    loadMD("news-content", "news.md");
 </script>
 
 </body>
