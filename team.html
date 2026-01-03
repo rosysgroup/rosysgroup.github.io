@@ -17,20 +17,11 @@
 
         /* Header */
         header { 
-            background: white;
-            padding: 60px 0; 
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: center;
+            background: white; padding: 60px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center;
         }
         .header-content {
-            width: 100%;
-            max-width: var(--max-width);
-            padding: 0 20px;
-            display: flex;
-            align-items: center; 
-            justify-content: space-between;
-            gap: 50px;
+            width: 100%; max-width: var(--max-width); padding: 0 20px;
+            display: flex; align-items: center; justify-content: space-between; gap: 50px;
         }
         .header-text-section h1 { margin: 0; font-size: 3rem; color: var(--primary); line-height: 1.1; }
         .header-logo-section img { max-height: 160px; width: auto; display: block; }
@@ -39,32 +30,21 @@
         .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
         
         .category-title {
-            font-size: 1.8rem;
-            color: var(--primary);
-            border-bottom: 2px solid #eee;
-            margin: 60px 0 30px 0;
-            padding-bottom: 10px;
+            font-size: 1.8rem; color: var(--primary); border-bottom: 2px solid #eee;
+            margin: 60px 0 30px 0; padding-bottom: 10px;
         }
 
         .team-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; 
-            gap: 60px 40px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px 40px;
         }
 
         .member-card {
-            display: flex;
-            align-items: center; /* Allinea verticalmente foto e testo */
-            gap: 25px;
+            display: flex; align-items: center; gap: 25px;
         }
 
         .photo-wrapper {
-            flex: 0 0 160px; 
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-            border-radius: 8px;
-            background: #f9f9f9;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            flex: 0 0 160px; aspect-ratio: 1 / 1; overflow: hidden;
+            border-radius: 8px; background: #f9f9f9; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         .photo-wrapper img { width: 100%; height: 100%; object-fit: cover; }
         
@@ -72,19 +52,13 @@
         .member-name { font-weight: bold; font-size: 1.3rem; color: #000; margin: 0; line-height: 1.2; }
         .member-role { font-size: 1rem; color: #666; margin: 4px 0 10px 0; }
         
-        /* Links spostati sotto il ruolo */
+        /* Links style */
         .member-links { 
-            display: flex; 
-            gap: 15px; 
-            margin-top: 5px;
+            display: flex; flex-wrap: wrap; gap: 15px; margin-top: 5px;
         }
         .member-links a {
-            text-decoration: none;
-            font-size: 0.8rem;
-            color: var(--accent);
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: color 0.2s;
+            text-decoration: none; font-size: 0.8rem; color: var(--accent);
+            font-weight: bold; text-transform: uppercase; transition: color 0.2s;
         }
         .member-links a:hover { color: var(--primary); text-decoration: underline; }
 
@@ -142,16 +116,29 @@
             const members = await response.json();
             const container = document.getElementById('team-sections-container');
 
+            // Campi da NON trasformare in link
+            const excludeFields = ['name', 'role', 'category', 'photo'];
+
             categories.forEach(cat => {
                 const catMembers = members.filter(m => m.category === cat);
                 if (catMembers.length > 0) {
                     const section = document.createElement('div');
                     section.innerHTML = `<h2 class="category-title">${cat}</h2>`;
-                    
                     const grid = document.createElement('div');
                     grid.className = 'team-grid';
                     
                     catMembers.forEach(m => {
+                        // Genera i link in modo dinamico
+                        let linksHtml = '';
+                        Object.entries(m).forEach(([key, value]) => {
+                            // Se non è un campo testo e il valore esiste ed è valido
+                            if (!excludeFields.includes(key) && value && value !== "#" && value !== "") {
+                                // Rende l'etichetta carina (es: scholar -> Scholar)
+                                const label = key.charAt(0).toUpperCase() + key.slice(1);
+                                linksHtml += `<a href="${value}" target="_blank">${label}</a>`;
+                            }
+                        });
+
                         grid.innerHTML += `
                             <div class="member-card">
                                 <div class="photo-wrapper">
@@ -160,11 +147,7 @@
                                 <div class="member-info">
                                     <div class="member-name">${m.name}</div>
                                     <div class="member-role">${m.role}</div>
-                                    <div class="member-links">
-                                        ${m.web && m.web !== "#" ? `<a href="${m.web}" target="_blank">Website</a>` : ''}
-                                        ${m.scholar && m.scholar !== "#" ? `<a href="${m.scholar}" target="_blank">Scholar</a>` : ''}
-                                        ${m.linkedin && m.linkedin !== "#" ? `<a href="${m.linkedin}" target="_blank">LinkedIn</a>` : ''}
-                                    </div>
+                                    <div class="member-links">${linksHtml}</div>
                                 </div>
                             </div>
                         `;
@@ -173,7 +156,7 @@
                     container.appendChild(section);
                 }
             });
-        } catch (e) { console.error("Errore nel caricamento del team:", e); }
+        } catch (e) { console.error("Errore caricamento team:", e); }
     }
     loadTeam();
 </script>
