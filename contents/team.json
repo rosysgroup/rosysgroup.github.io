@@ -12,7 +12,7 @@
     "name": "Dario Calogero Guastella",
     "role": "Assistant Professor",
     "category": "Associate & Assistant professors",
-    "photo": "gallery/team/placeholder.jpg",
+    "photo": "gallery/team/guastella.jpg",
     "web": "#",
     "scholar": "#",
     "linkedin": "#"
@@ -21,7 +21,7 @@
     "name": "Giuseppe Sutera",
     "role": "Assistant Professor",
     "category": "Associate & Assistant professors",
-    "photo": "gallery/team/placeholder.jpg",
+    "photo": "gallery/team/sutera.jpg",
     "web": "#",
     "scholar": "#",
     "linkedin": "#"
@@ -30,7 +30,7 @@
     "name": "Francesco Cancelliere",
     "role": "PhD Student",
     "category": "PhD Students",
-    "photo": "gallery/team/placeholder.jpg",
+    "photo": "gallery/team/cancelliere.jpg",
     "web": "#",
     "scholar": "#",
     "linkedin": "#"
@@ -39,7 +39,16 @@
     "name": "Muhammad Ishaq",
     "role": "Research fellows",
     "category": "Research fellows",
-    "photo": "gallery/team/placeholder.jpg",
+    "photo": "gallery/team/ishaq.jpg",
+    "web": "#",
+    "scholar": "#",
+    "linkedin": "#"
+  },
+  {
+    "name": "Giuseppe Caruso",
+    "role": "Engineer",
+    "category": "Engineers",
+    "photo": "gallery/team/caruso.jpg",
     "web": "#",
     "scholar": "#",
     "linkedin": "#"
@@ -48,7 +57,7 @@
     "name": "Andrea Borgese",
     "role": "PhD",
     "category": "Alumni",
-    "photo": "gallery/team/placeholder.jpg",
+    "photo": "gallery/team/borgese.jpg",
     "web": "#",
     "scholar": "#",
     "linkedin": "#"
