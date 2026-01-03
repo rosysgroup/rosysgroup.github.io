@@ -40,15 +40,14 @@
         }
         nav a:hover { color: #bdc3c7; }
 
-        /* Header COMPATTO (Stile Lab/Robots/Team) */
+        /* Header ESPANSO: Contiene tutto il testo About */
         header { 
             background: white;
-            padding: 5px 0; 
+            padding: 60px 0; /* Spazio generoso come all'inizio */
             border-bottom: 1px solid #eee;
             display: flex;
             justify-content: center;
-            height: 120px;
-            align-items: center;
+            min-height: 200px; /* Altezza minima, ma può crescere */
         }
 
         .header-content {
@@ -58,31 +57,28 @@
             display: flex;
             align-items: center; 
             justify-content: space-between;
-            gap: 30px;
+            gap: 50px;
         }
 
         .header-text-section { flex: 2; text-align: left; }
         .header-text-section h1 { 
-            margin: 0; 
-            font-size: 2.2rem; 
+            margin: 0 0 15px 0; 
+            font-size: 3rem; 
             color: var(--primary); 
             line-height: 1.1;
         }
         
         #header-about-content {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #444;
             max-width: 750px;
-            margin-top: 5px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2; 
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            text-align: justify;
+            /* Rimosse limitazioni di righe per mostrare tutto */
         }
 
-        /* Logo Ingrandito come richiesto */
+        /* Logo grande come richiesto */
         .header-logo-section img {
-            max-height: 110px; 
+            max-height: 160px; 
             width: auto;
             display: block;
         }
@@ -132,9 +128,10 @@
         .footer-credits { font-size: 0.9rem; opacity: 0.7; letter-spacing: 1px; }
 
         @media (max-width: 900px) {
-            header { height: auto; padding: 20px 0; }
+            header { padding: 40px 0; }
             .header-content { flex-direction: column-reverse; text-align: center; }
-            .header-logo-section { margin-bottom: 15px; }
+            .header-logo-section { margin-bottom: 30px; justify-content: center; }
+            .header-text-section h1 { font-size: 2.2rem; }
             .slide { height: 320px; }
         }
     </style>
@@ -187,7 +184,6 @@
 </footer>
 
 <script>
-    // Percorso immagini aggiornato: gallery/images/imageX.jpg
     const totalImages = 15;
     const slidesContainer = document.getElementById('gallery-slides');
     let currentSlide = 0;
