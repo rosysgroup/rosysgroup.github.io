@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team – RoSys Group</title>
     <link rel="icon" type="image/png" href="gallery/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #002147; --accent: #0056b3; --bg: #ffffff; --text: #333; --max-width: 1100px;
@@ -12,19 +13,28 @@
         body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text); background: white; line-height: 1.6; }
 
         /* Navigation */
-        nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; color: rgba(255,255,255,0.3); }
+        nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 
-        /* Header */
+        /* Header COMPATTO (Stile Lab/Robots) */
         header { 
-            background: white; padding: 60px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center;
+            background: white; 
+            padding: 5px 0; 
+            border-bottom: 1px solid #eee; 
+            display: flex; 
+            justify-content: center; 
+            height: 120px; 
+            align-items: center;
         }
         .header-content {
             width: 100%; max-width: var(--max-width); padding: 0 20px;
-            display: flex; align-items: center; justify-content: space-between; gap: 50px;
+            display: flex; align-items: center; justify-content: space-between; gap: 30px;
         }
-        .header-text-section h1 { margin: 0; font-size: 3rem; color: var(--primary); line-height: 1.1; }
-        .header-logo-section img { max-height: 160px; width: auto; display: block; }
+        .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); line-height: 1.1; }
+        .header-text-section p { margin: 5px 0 0 0; color: #666; font-size: 1rem; }
+        
+        /* Logo Ingrandito */
+        .header-logo-section img { max-height: 110px; width: auto; display: block; }
 
         /* Team Container */
         .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
@@ -62,11 +72,23 @@
         }
         .member-links a:hover { color: var(--primary); text-decoration: underline; }
 
-        footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
+        /* Footer Moderno con Social */
+        footer { 
+            background: var(--primary); color: white; padding: 40px 20px; 
+            text-align: center; margin-top: 80px; 
+        }
+        .social-links { margin-bottom: 20px; }
+        .social-links a { 
+            color: white; font-size: 1.5rem; margin: 0 15px; 
+            text-decoration: none; opacity: 0.8; transition: opacity 0.3s;
+        }
+        .social-links a:hover { opacity: 1; color: var(--accent); }
+        .footer-credits { font-size: 0.9rem; opacity: 0.7; }
 
         @media (max-width: 950px) {
-            .team-grid { grid-template-columns: 1fr; }
+            header { height: auto; padding: 20px 0; }
             .header-content { flex-direction: column-reverse; text-align: center; }
+            .team-grid { grid-template-columns: 1fr; }
             .member-card { flex-direction: column; text-align: center; }
             .member-links { justify-content: center; }
         }
@@ -88,7 +110,7 @@
     <div class="header-content">
         <div class="header-text-section">
             <h1>Our Team</h1>
-            <p style="color: #666; font-size: 1.1rem;">Faculty, Researchers and Students</p>
+            <p>Faculty, Researchers and Students</p>
         </div>
         <div class="header-logo-section">
             <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
@@ -98,7 +120,17 @@
 
 <div class="container" id="team-sections-container"></div>
 
-<footer><p>&copy; 2026 RoSys Group - University of Catania</p></footer>
+<footer>
+    <div class="social-links">
+        <a href="https://www.linkedin.com/company/tuo-profilo" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/tuo-canale" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://github.com/tuo-github" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:tuamail@esempio.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+    <div class="footer-credits">
+        &copy; 2026 RoSys Group - All Rights Reserved
+    </div>
+</footer>
 
 <script>
     const categories = [
@@ -116,7 +148,6 @@
             const members = await response.json();
             const container = document.getElementById('team-sections-container');
 
-            // Campi da NON trasformare in link
             const excludeFields = ['name', 'role', 'category', 'photo'];
 
             categories.forEach(cat => {
@@ -128,12 +159,9 @@
                     grid.className = 'team-grid';
                     
                     catMembers.forEach(m => {
-                        // Genera i link in modo dinamico
                         let linksHtml = '';
                         Object.entries(m).forEach(([key, value]) => {
-                            // Se non è un campo testo e il valore esiste ed è valido
                             if (!excludeFields.includes(key) && value && value !== "#" && value !== "") {
-                                // Rende l'etichetta carina (es: scholar -> Scholar)
                                 const label = key.charAt(0).toUpperCase() + key.slice(1);
                                 linksHtml += `<a href="${value}" target="_blank">${label}</a>`;
                             }
