@@ -15,11 +15,34 @@
         nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 
-        /* Header */
-        header { background: white; padding: 25px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center; }
-        .header-content { width: 100%; max-width: var(--max-width); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+        /* Header Ottimizzato: Logo più grande, altezza fissa */
+        header { 
+            background: white; 
+            padding: 5px 0; /* Padding minimo per massimizzare il logo */
+            border-bottom: 1px solid #eee; 
+            display: flex; 
+            justify-content: center; 
+            height: 120px; /* Altezza bloccata */
+            align-items: center;
+        }
+        .header-content { 
+            width: 100%; 
+            max-width: var(--max-width); 
+            padding: 0 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 30px; 
+        }
         .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); line-height: 1.1; }
-        .header-logo-section img { max-height: 90px; width: auto; display: block; }
+        .header-text-section p { margin: 5px 0 0 0; color: #666; }
+
+        /* Logo ingrandito senza espandere il contenitore */
+        .header-logo-section img { 
+            max-height: 110px; /* Occupa quasi tutti i 120px di altezza dell'header */
+            width: auto; 
+            display: block; 
+        }
 
         .container { max-width: var(--max-width); margin: 30px auto; padding: 0 20px; }
         .lab-intro { font-size: 1.1rem; color: #555; margin-bottom: 30px; text-align: justify; }
@@ -36,7 +59,7 @@
         .equipment-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; padding: 0; }
         .equipment-list li::before { content: "•"; color: var(--accent); font-weight: bold; margin-right: 10px; }
 
-        /* Media Section */
+        /* Media Section (Video & Map) */
         .lab-media-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
         .lab-media-section.full-width { grid-template-columns: 1fr; }
         .media-box h3 { color: var(--primary); margin-bottom: 15px; border-left: 4px solid var(--accent); padding-left: 10px; font-size: 1.4rem; }
@@ -48,23 +71,30 @@
         footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
 
         @media (max-width: 900px) {
+            header { height: auto; padding: 20px 0; }
+            .header-content { flex-direction: column-reverse; text-align: center; }
             .lab-media-section { grid-template-columns: 1fr !important; }
             .equipment-list { grid-template-columns: 1fr; }
-            .header-content { flex-direction: column-reverse; text-align: center; }
         }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="index.html">Home</a> | <a href="team.html">Team</a> | <a href="robots.html">Robots</a> | <a href="lab.html">Lab</a> | <a href="publications.html">Publications</a> | <a href="research.html">Research</a> | <a href="opportunity.html">Opportunity</a>
+    <a href="index.html">Home</a> <span>|</span>
+    <a href="team.html">Team</a> <span>|</span>
+    <a href="robots.html">Robots</a> <span>|</span>
+    <a href="lab.html">Lab</a> <span>|</span>
+    <a href="publications.html">Publications</a> <span>|</span>
+    <a href="research.html">Research</a> <span>|</span>
+    <a href="opportunity.html">Opportunity</a>
 </nav>
 
 <header>
     <div class="header-content">
         <div class="header-text-section">
             <h1>Our Lab</h1>
-            <p style="color: #666; margin-top: 5px;">Experimental Facilities & Infrastructure</p>
+            <p>Experimental Facilities & Infrastructure</p>
         </div>
         <div class="header-logo-section">
             <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
@@ -109,9 +139,10 @@
             const response = await fetch('contents/lab.json');
             const data = await response.json();
 
+            // Descrizione
             document.getElementById('lab-intro').innerText = data.description;
             
-            // Video Logic
+            // Gestione Video (Nasconde se non c'è link)
             const videoBox = document.getElementById('video-box');
             const mediaSection = document.getElementById('media-section');
             if (data.video_url && data.video_url !== "#" && data.video_url !== "") {
@@ -121,12 +152,12 @@
                 mediaSection.classList.add('full-width');
             }
 
-            // Map Logic
+            // Mappa e Indirizzo
             document.getElementById('lab-map').src = data.location_embed;
             document.getElementById('address-container').innerHTML = 
                 `<strong>Location:</strong> ${data.address}, ${data.cap} ${data.city} (${data.country})`;
 
-            // Gallery
+            // Galleria
             const gallery = document.getElementById('lab-gallery');
             data.gallery.forEach(img => {
                 gallery.innerHTML += `
