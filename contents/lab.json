@@ -1,0 +1,14 @@
+{
+  "description": "The RoSys Lab is located at the Department of Electrical, Electronics and Computer Engineering (DIEEI) of the University of Catania. Our facility is equipped with state-of-the-art technology for robotics research, including indoor flight volumes and outdoor testing areas.",
+  "gallery": [
+    {"src": "gallery/lab/lab1.jpg", "caption": "Main research area"},
+    {"src": "gallery/lab/lab2.jpg", "caption": "Electronics prototyping station"},
+    {"src": "gallery/lab/testing.jpg", "caption": "Indoor drone testing zone"}
+  ],
+  "equipment": [
+    "OptiTrack Motion Capture System",
+    "3D Printing & Rapid Prototyping Station",
+    "High-performance Workstations for AI & Simulation",
+    "Soldering and PCB assembly station"
+  ]
+}
