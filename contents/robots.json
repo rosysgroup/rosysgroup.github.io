@@ -4,13 +4,15 @@
     "type": "Unmanned Ground Vehicle",
     "category": "Ground Robots",
     "description": "A rugged, all-terrain mobile platform used for autonomous navigation and mapping in outdoor environments.",
-    "photo": "gallery/robots/sandro.jpg"
+    "photo": "gallery/robots/sandro.jpg",
+    "video": "https://www.youtube.com/watch?v=dNyUeop_Ihc"
   },
   {
     "name": "DJI S900",
     "type": "Unmanned Aerial Vehicle",
     "category": "Aerial Platforms",
     "description": "High-endurance drone equipped with RTK and cameras for multi-robot coordination.",
-    "photo": "gallery/robots/s900.jpg"
+    "photo": "gallery/robots/s900.jpg",
+    "video": "#"
   }
 ]
