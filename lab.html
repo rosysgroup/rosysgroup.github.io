@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab – RoSys Group</title>
+    <link rel="icon" type="image/png" href="gallery/favicon.png">
+    <style>
+        :root {
+            --primary: #002147; --accent: #0056b3; --bg: #ffffff; --text: #333; --max-width: 1100px;
+        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text); background: white; line-height: 1.6; }
+
+        /* Navigation */
+        nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
+        nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+
+        /* Header */
+        header { background: white; padding: 60px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center; }
+        .header-content { width: 100%; max-width: var(--max-width); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
+        .header-text-section h1 { margin: 0; font-size: 3rem; color: var(--primary); }
+
+        /* Content */
+        .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
+        
+        .lab-intro { font-size: 1.2rem; color: #555; margin-bottom: 40px; text-align: justify; }
+
+        /* Gallery Grid */
+        .lab-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .gallery-item img { width: 100%; height: 250px; object-fit: cover; display: block; }
+        .gallery-caption {
+            padding: 10px;
+            background: white;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+
+        /* Equipment Section */
+        .equipment-section {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+        }
+        .equipment-section h2 { margin-top: 0; color: var(--primary); }
+        .equipment-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            list-style: none;
+            padding: 0;
+        }
+        .equipment-list li::before { content: "•"; color: var(--accent); font-weight: bold; margin-right: 10px; }
+
+        footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column-reverse; text-align: center; }
+            .equipment-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a> <span>|</span>
+    <a href="team.html">Team</a> <span>|</span>
+    <a href="robots.html">Robots</a> <span>|</span>
+    <a href="lab.html">Lab</a> <span>|</span>
+    <a href="publications.html">Publications</a> <span>|</span>
+    <a href="research.html">Research</a> <span>|</span>
+    <a href="opportunity.html">Opportunity</a>
+</nav>
+
+<header>
+    <div class="header-content">
+        <div class="header-text-section">
+            <h1>Our Lab</h1>
+            <p style="color: #666;">Experimental Facilities & Infrastructure</p>
+        </div>
+        <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo" style="max-height: 120px;">
+    </div>
+</header>
+
+<div class="container">
+    <div id="lab-intro" class="lab-intro"></div>
+    
+    <div class="lab-gallery" id="lab-gallery">
+        </div>
+
+    <div class="equipment-section">
+        <h2>Technical Equipment</h2>
+        <ul class="equipment-list" id="equipment-list">
+            </ul>
+    </div>
+</div>
+
+<footer><p>&copy; 2026 RoSys Group - University of Catania</p></footer>
+
+<script>
+    async function loadLabData() {
+        try {
+            const response = await fetch('contents/lab.json');
+            const data = await response.json();
+
+            // Carica descrizione
+            document.getElementById('lab-intro').innerText = data.description;
+
+            // Carica Gallery
+            const gallery = document.getElementById('lab-gallery');
+            data.gallery.forEach(img => {
+                gallery.innerHTML += `
+                    <div class="gallery-item">
+                        <img src="${img.src}" alt="${img.caption}" onerror="this.src='gallery/lab/placeholder.jpg'">
+                        <div class="gallery-caption">${img.caption}</div>
+                    </div>
+                `;
+            });
+
+            // Carica Equipment
+            const list = document.getElementById('equipment-list');
+            data.equipment.forEach(item => {
+                list.innerHTML += `<li>${item}</li>`;
+            });
+
+        } catch (e) { console.error("Error loading lab data:", e); }
+    }
+    loadLabData();
+</script>
+</body>
+</html>
