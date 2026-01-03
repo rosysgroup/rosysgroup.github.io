@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lab – RoSys Group</title>
     <link rel="icon" type="image/png" href="gallery/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #002147; --accent: #0056b3; --max-width: 1100px;
@@ -18,11 +19,11 @@
         /* Header Ottimizzato: Logo più grande, altezza fissa */
         header { 
             background: white; 
-            padding: 5px 0; /* Padding minimo per massimizzare il logo */
+            padding: 5px 0; 
             border-bottom: 1px solid #eee; 
             display: flex; 
             justify-content: center; 
-            height: 120px; /* Altezza bloccata */
+            height: 120px; 
             align-items: center;
         }
         .header-content { 
@@ -37,9 +38,9 @@
         .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); line-height: 1.1; }
         .header-text-section p { margin: 5px 0 0 0; color: #666; }
 
-        /* Logo ingrandito senza espandere il contenitore */
+        /* Logo ingrandito */
         .header-logo-section img { 
-            max-height: 110px; /* Occupa quasi tutti i 120px di altezza dell'header */
+            max-height: 110px; 
             width: auto; 
             display: block; 
         }
@@ -59,7 +60,7 @@
         .equipment-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; padding: 0; }
         .equipment-list li::before { content: "•"; color: var(--accent); font-weight: bold; margin-right: 10px; }
 
-        /* Media Section (Video & Map) */
+        /* Media Section */
         .lab-media-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
         .lab-media-section.full-width { grid-template-columns: 1fr; }
         .media-box h3 { color: var(--primary); margin-bottom: 15px; border-left: 4px solid var(--accent); padding-left: 10px; font-size: 1.4rem; }
@@ -68,7 +69,18 @@
         .responsive-iframe { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); background: #eee; }
         .responsive-iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
+        /* Footer Moderno con Social */
+        footer { 
+            background: var(--primary); color: white; padding: 40px 20px; 
+            text-align: center; margin-top: 80px; 
+        }
+        .social-links { margin-bottom: 20px; }
+        .social-links a { 
+            color: white; font-size: 1.5rem; margin: 0 15px; 
+            text-decoration: none; opacity: 0.8; transition: opacity 0.3s;
+        }
+        .social-links a:hover { opacity: 1; color: var(--accent); }
+        .footer-credits { font-size: 0.9rem; opacity: 0.7; }
 
         @media (max-width: 900px) {
             header { height: auto; padding: 20px 0; }
@@ -131,7 +143,17 @@
     </div>
 </div>
 
-<footer><p>&copy; 2026 RoSys Group - University of Catania</p></footer>
+<footer>
+    <div class="social-links">
+        <a href="https://www.linkedin.com/company/tuo-profilo" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.youtube.com/tuo-canale" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://github.com/tuo-github" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="mailto:tuamail@esempio.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+    <div class="footer-credits">
+        &copy; 2026 RoSys Group - All Rights Reserved
+    </div>
+</footer>
 
 <script>
     async function loadLabData() {
@@ -139,10 +161,8 @@
             const response = await fetch('contents/lab.json');
             const data = await response.json();
 
-            // Descrizione
             document.getElementById('lab-intro').innerText = data.description;
             
-            // Gestione Video (Nasconde se non c'è link)
             const videoBox = document.getElementById('video-box');
             const mediaSection = document.getElementById('media-section');
             if (data.video_url && data.video_url !== "#" && data.video_url !== "") {
@@ -152,12 +172,10 @@
                 mediaSection.classList.add('full-width');
             }
 
-            // Mappa e Indirizzo
             document.getElementById('lab-map').src = data.location_embed;
             document.getElementById('address-container').innerHTML = 
                 `<strong>Location:</strong> ${data.address}, ${data.cap} ${data.city} (${data.country})`;
 
-            // Galleria
             const gallery = document.getElementById('lab-gallery');
             data.gallery.forEach(img => {
                 gallery.innerHTML += `
@@ -167,7 +185,6 @@
                     </div>`;
             });
 
-            // Equipment
             const eqList = document.getElementById('equipment-list');
             data.equipment.forEach(item => {
                 eqList.innerHTML += `<li>${item}</li>`;
