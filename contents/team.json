@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Prof. Giovanni Muscato",
+    "role": "Full Professor / Lab Director",
+    "category": "Head of the lab",
+    "photo": "gallery/team/muscato.jpg",
+    "web": "https://www.unict.it/it/persone/giovanni.muscato",
+    "scholar": "#",
+    "linkedin": "#"
+  },
+  {
+    "name": "Dario Calogero Guastella",
+    "role": "Assistant Professor",
+    "category": "Associate & Assistant professors",
+    "photo": "gallery/team/placeholder.jpg",
+    "web": "#",
+    "scholar": "#",
+    "linkedin": "#"
+  },
+  {
+    "name": "Giuseppe Sutera",
+    "role": "Assistant Professor",
+    "category": "Associate & Assistant professors",
+    "photo": "gallery/team/placeholder.jpg",
+    "web": "#",
+    "scholar": "#",
+    "linkedin": "#"
+  },
+  {
+    "name": "Francesco Cancelliere",
+    "role": "PhD Student",
+    "category": "PhD Students",
+    "photo": "gallery/team/placeholder.jpg",
+    "web": "#",
+    "scholar": "#",
+    "linkedin": "#"
+  },
+  {
+    "name": "Muhammad Ishaq",
+    "role": "Research Fellow",
+    "category": "Research Fellow",
+    "photo": "gallery/team/placeholder.jpg",
+    "web": "#",
+    "scholar": "#",
+    "linkedin": "#"
+  },
+  {
+    "name": "Andrea Borgese",
+    "role": "PhD",
+    "category": "Alumni",
+    "photo": "gallery/team/placeholder.jpg",
+    "web": "#",
+    "scholar": "#",
+    "linkedin": "#"
+  }
+]
