@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robots – RoSys Group</title>
+    <link rel="icon" type="image/png" href="gallery/favicon.png">
+    <style>
+        :root {
+            --primary: #002147; --accent: #0056b3; --bg: #ffffff; --text: #333; --max-width: 1100px;
+        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text); background: white; line-height: 1.6; }
+
+        /* Navigation */
+        nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; color: rgba(255,255,255,0.3); }
+        nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+
+        /* Header (Coerente con Index/Team) */
+        header { 
+            background: white; padding: 60px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center;
+        }
+        .header-content {
+            width: 100%; max-width: var(--max-width); padding: 0 20px;
+            display: flex; align-items: center; justify-content: space-between; gap: 50px;
+        }
+        .header-text-section h1 { margin: 0; font-size: 3rem; color: var(--primary); line-height: 1.1; }
+        .header-logo-section img { max-height: 160px; width: auto; display: block; }
+
+        /* Robots Container */
+        .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
+        
+        .category-title {
+            font-size: 2rem; color: var(--primary); border-bottom: 2px solid #eee;
+            margin: 60px 0 30px 0; padding-bottom: 10px;
+        }
+
+        /* Griglia Robots */
+        .robots-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Due colonne */
+            gap: 50px 60px;
+        }
+
+        /* Card Robot */
+        .robot-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+        }
+
+        .robot-photo {
+            flex: 0 0 180px; /* Foto leggermente più grande di quella del team */
+            aspect-ratio: 4 / 3; /* Formato rettangolare tecnico */
+            overflow: hidden;
+            border-radius: 8px;
+            background: #f9f9f9;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .robot-photo img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .robot-info { flex: 1; }
+        .robot-name { font-weight: bold; font-size: 1.4rem; color: #000; margin: 0; line-height: 1.2; }
+        .robot-type { font-size: 0.9rem; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-top: 5px; }
+        .robot-desc { font-size: 1rem; color: #555; margin-top: 10px; text-align: justify; }
+
+        footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
+
+        @media (max-width: 950px) {
+            .robots-grid { grid-template-columns: 1fr; }
+            .header-content { flex-direction: column-reverse; text-align: center; }
+            .robot-card { flex-direction: column; align-items: center; text-align: center; }
+            .robot-photo { flex: 0 0 250px; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a> <span>|</span>
+    <a href="team.html">Team</a> <span>|</span>
+    <a href="robots.html">Robots</a> <span>|</span>
+    <a href="lab.html">Lab</a> <span>|</span>
+    <a href="publications.html">Publications</a> <span>|</span>
+    <a href="research.html">Research</a> <span>|</span>
+    <a href="opportunity.html">Opportunity</a>
+</nav>
+
+<header>
+    <div class="header-content">
+        <div class="header-text-section">
+            <h1>Our Robots</h1>
+            <p style="color: #666; font-size: 1.1rem;">Fleet and Experimental Platforms</p>
+        </div>
+        <div class="header-logo-section">
+            <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
+        </div>
+    </div>
+</header>
+
+<div class="container" id="robots-container">
+    </div>
+
+<footer><p>&copy; 2026 RoSys Group - </p></footer>
+
+<script>
+    async function loadRobots() {
+        try {
+            const response = await fetch('contents/robots.json');
+            const robots = await response.json();
+            const container = document.getElementById('robots-container');
+
+            // Trova categorie uniche nel JSON
+            const categories = [...new Set(robots.map(r => r.category))];
+
+            categories.forEach(cat => {
+                const section = document.createElement('div');
+                section.innerHTML = `<h2 class="category-title">${cat}</h2>`;
+                
+                const grid = document.createElement('div');
+                grid.className = 'robots-grid';
+                
+                robots.filter(r => r.category === cat).forEach(r => {
+                    grid.innerHTML += `
+                        <div class="robot-card">
+                            <div class="robot-photo">
+                                <img src="${r.photo}" alt="${r.name}" onerror="this.src='gallery/robots/placeholder.jpg'">
+                            </div>
+                            <div class="robot-info">
+                                <div class="robot-name">${r.name}</div>
+                                <div class="robot-type">${r.type}</div>
+                                <div class="robot-desc">${r.description}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        } catch (e) { console.error("Error loading robots:", e); }
+    }
+    loadRobots();
+</script>
+</body>
+</html>
