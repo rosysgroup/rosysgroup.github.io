@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team – RoSys Group</title>
+    <link rel="icon" type="image/png" href="gallery/favicon.png">
+    <style>
+        :root {
+            --primary: #002147; --accent: #0056b3; --bg: #ffffff; --text: #333; --max-width: 1100px;
+        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text); background: white; }
+
+        /* Navigation */
+        nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; color: rgba(255,255,255,0.3); }
+        nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+
+        /* Header (Allineato con la Home) */
+        header { padding: 50px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center; }
+        .header-content { width: 100%; max-width: var(--max-width); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+        .header-text-section h1 { margin: 0; font-size: 2.8rem; color: var(--primary); }
+
+        /* Team Sections */
+        .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
+        
+        .category-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            border-bottom: 2px solid #eee;
+            margin: 50px 0 30px 0;
+            padding-bottom: 10px;
+            text-transform: capitalize;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        /* Card Member */
+        .member-card { text-align: left; }
+        .photo-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: 4px; /* Stile Xuesu: quadrato con angoli appena arrotondati */
+            margin-bottom: 12px;
+            background: #f9f9f9;
+        }
+        .photo-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .member-card:hover img { transform: scale(1.05); }
+        
+        .member-name { font-weight: bold; font-size: 1.1rem; color: #000; margin: 0; }
+        .member-role { font-size: 0.9rem; color: #666; margin: 2px 0 8px 0; line-height: 1.2; }
+        
+        .member-links a {
+            text-decoration: none; margin-right: 10px; font-size: 0.8rem;
+            color: var(--accent); font-weight: bold; text-transform: uppercase;
+        }
+        .member-links a:hover { color: var(--primary); }
+
+        footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a> <span>|</span>
+    <a href="team.html">Team</a> <span>|</span>
+    <a href="robots.html">Robots</a> <span>|</span>
+    <a href="lab.html">Lab</a> <span>|</span>
+    <a href="publications.html">Publications</a> <span>|</span>
+    <a href="research.html">Research</a> <span>|</span>
+    <a href="opportunity.html">Opportunity</a>
+</nav>
+
+<header>
+    <div class="header-content">
+        <div class="header-text-section">
+            <h1>People</h1>
+        </div>
+        <div class="header-logo-section">
+            <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo" style="max-height: 100px;">
+        </div>
+    </div>
+</header>
+
+<div class="container" id="team-sections-container">
+    </div>
+
+<footer><p>&copy; 2026 RoSys Group - University of Catania</p></footer>
+
+<script>
+    const categories = [
+        "Head of the lab",
+        "Associate & Assistant professors",
+        "Research fellows",
+        "PhD Students",
+        "Alumni"
+    ];
+
+    async function loadTeam() {
+        try {
+            const response = await fetch('contents/team.json');
+            const members = await response.json();
+            const container = document.getElementById('team-sections-container');
+
+            categories.forEach(cat => {
+                // Filtra i membri per categoria
+                const catMembers = members.filter(m => m.category === cat);
+                
+                if (catMembers.length > 0) {
+                    // Crea il titolo della categoria
+                    const section = document.createElement('div');
+                    section.innerHTML = `<h2 class="category-title">${cat}</h2>`;
+                    
+                    // Crea la griglia per questa categoria
+                    const grid = document.createElement('div');
+                    grid.className = 'team-grid';
+                    
+                    catMembers.forEach(m => {
+                        grid.innerHTML += `
+                            <div class="member-card">
+                                <div class="photo-wrapper">
+                                    <img src="${m.photo}" alt="${m.name}" onerror="this.src='gallery/team/placeholder.jpg'">
+                                </div>
+                                <div class="member-name">${m.name}</div>
+                                <div class="member-role">${m.role}</div>
+                                <div class="member-links">
+                                    ${m.web && m.web !== "#" ? `<a href="${m.web}" target="_blank">Web</a>` : ''}
+                                    ${m.scholar && m.scholar !== "#" ? `<a href="${m.scholar}" target="_blank">Scholar</a>` : ''}
+                                    ${m.linkedin && m.linkedin !== "#" ? `<a href="${m.linkedin}" target="_blank">LinkedIn</a>` : ''}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    section.appendChild(grid);
+                    container.appendChild(section);
+                }
+            });
+        } catch (e) { console.error("Errore caricamento team:", e); }
+    }
+    loadTeam();
+</script>
+</body>
+</html>
