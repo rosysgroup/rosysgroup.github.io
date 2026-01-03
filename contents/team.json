@@ -4,9 +4,9 @@
     "role": "Full Professor / Lab Director",
     "category": "Head of the lab",
     "photo": "gallery/team/muscato.jpg",
-    "web": "https://www.unict.it/it/persone/giovanni.muscato",
-    "scholar": "#",
-    "linkedin": "#"
+    "web": "https://sites.google.com/site/muscatopersonalpage/",
+    "scholar": "https://scholar.google.it/citations?user=thPkPWYAAAAJ&hl=it&oi=ao",
+    "linkedin": "https://www.linkedin.com/in/giovanni-muscato-20262649/"
   },
   {
     "name": "Dario Calogero Guastella",
@@ -14,17 +14,17 @@
     "category": "Associate & Assistant professors",
     "photo": "gallery/team/guastella.jpg",
     "web": "#",
-    "scholar": "#",
-    "linkedin": "#"
+    "scholar": "https://scholar.google.it/citations?user=TojZzR8AAAAJ&hl=it&oi=ao",
+    "linkedin": "https://www.linkedin.com/in/dario-guastella/"
   },
   {
     "name": "Giuseppe Sutera",
     "role": "Assistant Professor",
     "category": "Associate & Assistant professors",
     "photo": "gallery/team/sutera.jpg",
-    "web": "#",
-    "scholar": "#",
-    "linkedin": "#"
+    "web": "https://peppegti.github.io/",
+    "scholar": "https://scholar.google.it/citations?user=ZBhhWt0AAAAJ&hl=it&oi=ao",
+    "linkedin": "https://www.linkedin.com/in/giuseppesutera/"
   },
   {
     "name": "Francesco Cancelliere",
@@ -32,8 +32,8 @@
     "category": "PhD Students",
     "photo": "gallery/team/cancelliere.jpg",
     "web": "#",
-    "scholar": "#",
-    "linkedin": "#"
+    "scholar": "https://scholar.google.it/citations?user=nuTcD78AAAAJ&hl=it&oi=ao",
+    "linkedin": "https://www.linkedin.com/in/fracance/"
   },
   {
     "name": "Muhammad Ishaq",
@@ -41,8 +41,8 @@
     "category": "Research fellows",
     "photo": "gallery/team/ishaq.jpg",
     "web": "#",
-    "scholar": "#",
-    "linkedin": "#"
+    "scholar": "https://scholar.google.com/citations?user=56it4xYAAAAJ&hl=en",
+    "linkedin": "https://www.linkedin.com/in/muhammadishaqkhan/"
   },
   {
     "name": "Giuseppe Caruso",
@@ -51,7 +51,7 @@
     "photo": "gallery/team/caruso.jpg",
     "web": "#",
     "scholar": "#",
-    "linkedin": "#"
+    "linkedin": "https://www.linkedin.com/in/caruso-gius/"
   },
   {
     "name": "Andrea Borgese",
@@ -60,6 +60,6 @@
     "photo": "gallery/team/borgese.jpg",
     "web": "#",
     "scholar": "#",
-    "linkedin": "#"
+    "linkedin": "https://www.linkedin.com/in/andrea-borgese-b8166234/"
   }
 ]
