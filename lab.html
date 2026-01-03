@@ -15,14 +15,13 @@
         nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 
-        /* Header Compatto */
+        /* Header */
         header { background: white; padding: 25px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center; }
         .header-content { width: 100%; max-width: var(--max-width); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
         .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); line-height: 1.1; }
         .header-logo-section img { max-height: 90px; width: auto; display: block; }
 
         .container { max-width: var(--max-width); margin: 30px auto; padding: 0 20px; }
-        
         .lab-intro { font-size: 1.1rem; color: #555; margin-bottom: 30px; text-align: justify; }
 
         /* Gallery */
@@ -31,29 +30,26 @@
         .gallery-item img { width: 100%; height: 220px; object-fit: cover; display: block; }
         .gallery-caption { padding: 12px; font-size: 0.85rem; color: #666; text-align: center; border-top: 1px solid #f0f0f0; background: white; }
 
-        /* Media Section (Video & Map) */
-        .lab-media-section { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 40px; 
-            margin-top: 50px; 
-        }
-        /* Classe per quando il video è assente: la mappa prende tutto lo spazio */
+        /* Equipment */
+        .equipment-section { background: #f8f9fa; padding: 30px; border-radius: 8px; border-left: 4px solid var(--primary); margin-bottom: 50px; }
+        .equipment-section h2 { margin-top: 0; font-size: 1.5rem; color: var(--primary); }
+        .equipment-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; padding: 0; }
+        .equipment-list li::before { content: "•"; color: var(--accent); font-weight: bold; margin-right: 10px; }
+
+        /* Media Section */
+        .lab-media-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
         .lab-media-section.full-width { grid-template-columns: 1fr; }
-
         .media-box h3 { color: var(--primary); margin-bottom: 15px; border-left: 4px solid var(--accent); padding-left: 10px; font-size: 1.4rem; }
-        
-        .address-text { font-size: 0.95rem; color: #555; margin-bottom: 15px; min-height: 1.5em; }
+        .address-text { font-size: 0.95rem; color: #555; margin-bottom: 15px; }
 
-        .responsive-iframe {
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); background: #eee;
-        }
+        .responsive-iframe { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); background: #eee; }
         .responsive-iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
         footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
 
         @media (max-width: 900px) {
             .lab-media-section { grid-template-columns: 1fr !important; }
+            .equipment-list { grid-template-columns: 1fr; }
             .header-content { flex-direction: column-reverse; text-align: center; }
         }
     </style>
@@ -61,13 +57,7 @@
 <body>
 
 <nav>
-    <a href="index.html">Home</a> <span>|</span>
-    <a href="team.html">Team</a> <span>|</span>
-    <a href="robots.html">Robots</a> <span>|</span>
-    <a href="lab.html">Lab</a> <span>|</span>
-    <a href="publications.html">Publications</a> <span>|</span>
-    <a href="research.html">Research</a> <span>|</span>
-    <a href="opportunity.html">Opportunity</a>
+    <a href="index.html">Home</a> | <a href="team.html">Team</a> | <a href="robots.html">Robots</a> | <a href="lab.html">Lab</a> | <a href="publications.html">Publications</a> | <a href="research.html">Research</a> | <a href="opportunity.html">Opportunity</a>
 </nav>
 
 <header>
@@ -86,6 +76,11 @@
     <div id="lab-intro" class="lab-intro"></div>
     
     <div class="lab-gallery" id="lab-gallery"></div>
+
+    <div class="equipment-section">
+        <h2>Technical Equipment</h2>
+        <ul class="equipment-list" id="equipment-list"></ul>
+    </div>
 
     <div class="lab-media-section" id="media-section">
         <div class="media-box" id="video-box">
@@ -114,40 +109,39 @@
             const response = await fetch('contents/lab.json');
             const data = await response.json();
 
-            // 1. Descrizione
             document.getElementById('lab-intro').innerText = data.description;
             
-            // 2. Gestione Video (Mostra/Nascondi)
+            // Video Logic
             const videoBox = document.getElementById('video-box');
             const mediaSection = document.getElementById('media-section');
-            
-            if (data.video_url && data.video_url !== "" && data.video_url !== "#") {
+            if (data.video_url && data.video_url !== "#" && data.video_url !== "") {
                 document.getElementById('lab-video').src = data.video_url;
             } else {
-                videoBox.style.display = 'none'; // Nasconde il box video
-                mediaSection.classList.add('full-width'); // La mappa occupa tutto lo spazio
+                videoBox.style.display = 'none';
+                mediaSection.classList.add('full-width');
             }
 
-            // 3. Mappa e Indirizzo
-            if (data.location_embed) {
-                document.getElementById('lab-map').src = data.location_embed;
-            }
-            if (data.address) {
-                document.getElementById('address-container').innerHTML = 
-                    `<strong>Location:</strong> ${data.address}, ${data.cap} ${data.city} (${data.country})`;
-            }
+            // Map Logic
+            document.getElementById('lab-map').src = data.location_embed;
+            document.getElementById('address-container').innerHTML = 
+                `<strong>Location:</strong> ${data.address}, ${data.cap} ${data.city} (${data.country})`;
 
-            // 4. Galleria
+            // Gallery
             const gallery = document.getElementById('lab-gallery');
-            if (data.gallery) {
-                data.gallery.forEach(img => {
-                    gallery.innerHTML += `
-                        <div class="gallery-item">
-                            <img src="${img.src}" alt="${img.caption}" onerror="this.src='gallery/lab/placeholder.jpg'">
-                            <div class="gallery-caption">${img.caption}</div>
-                        </div>`;
-                });
-            }
+            data.gallery.forEach(img => {
+                gallery.innerHTML += `
+                    <div class="gallery-item">
+                        <img src="${img.src}" alt="${img.caption}" onerror="this.src='gallery/lab/placeholder.jpg'">
+                        <div class="gallery-caption">${img.caption}</div>
+                    </div>`;
+            });
+
+            // Equipment
+            const eqList = document.getElementById('equipment-list');
+            data.equipment.forEach(item => {
+                eqList.innerHTML += `<li>${item}</li>`;
+            });
+
         } catch (e) { console.error("Error loading lab data:", e); }
     }
     loadLabData();
