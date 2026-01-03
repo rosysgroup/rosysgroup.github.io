@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="gallery/favicon.png">
     <style>
         :root {
-            --primary: #002147; --accent: #0056b3; --bg: #ffffff; --text: #333; --max-width: 1100px;
+            --primary: #002147; --accent: #0056b3; --yt-red: #e62117; --bg: #ffffff; --text: #333; --max-width: 1100px;
         }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text); background: white; line-height: 1.6; }
 
@@ -34,14 +34,14 @@
             margin: 60px 0 30px 0; padding-bottom: 10px;
         }
 
-        /* Griglia Robots */
+        /* Griglia Robots a due colonne */
         .robots-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Due colonne */
-            gap: 50px 60px;
+            grid-template-columns: 1fr 1fr; 
+            gap: 60px 40px;
         }
 
-        /* Card Robot */
+        /* Card Robot: Foto sinistra, Info destra */
         .robot-card {
             display: flex;
             align-items: flex-start;
@@ -49,8 +49,8 @@
         }
 
         .robot-photo {
-            flex: 0 0 180px; /* Foto leggermente più grande di quella del team */
-            aspect-ratio: 4 / 3; /* Formato rettangolare tecnico */
+            flex: 0 0 180px; 
+            aspect-ratio: 4 / 3; 
             overflow: hidden;
             border-radius: 8px;
             background: #f9f9f9;
@@ -61,15 +61,31 @@
         .robot-info { flex: 1; }
         .robot-name { font-weight: bold; font-size: 1.4rem; color: #000; margin: 0; line-height: 1.2; }
         .robot-type { font-size: 0.9rem; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-top: 5px; }
-        .robot-desc { font-size: 1rem; color: #555; margin-top: 10px; text-align: justify; }
+        .robot-desc { font-size: 0.95rem; color: #555; margin-top: 10px; text-align: justify; }
+
+        /* Stile Link Video */
+        .robot-video-link { margin-top: 12px; }
+        .robot-video-link a {
+            text-decoration: none;
+            color: var(--yt-red);
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        .robot-video-link a:hover { color: var(--primary); text-decoration: underline; }
 
         footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
 
+        /* Mobile Responsive */
         @media (max-width: 950px) {
             .robots-grid { grid-template-columns: 1fr; }
             .header-content { flex-direction: column-reverse; text-align: center; }
             .robot-card { flex-direction: column; align-items: center; text-align: center; }
-            .robot-photo { flex: 0 0 250px; width: 100%; }
+            .robot-photo { flex: 0 0 200px; width: 100%; }
         }
     </style>
 </head>
@@ -109,16 +125,18 @@
             const robots = await response.json();
             const container = document.getElementById('robots-container');
 
-            // Trova categorie uniche nel JSON
+            // Estrae le categorie uniche presenti nel JSON
             const categories = [...new Set(robots.map(r => r.category))];
 
             categories.forEach(cat => {
+                // Crea la sezione per la categoria
                 const section = document.createElement('div');
                 section.innerHTML = `<h2 class="category-title">${cat}</h2>`;
                 
                 const grid = document.createElement('div');
                 grid.className = 'robots-grid';
                 
+                // Filtra e aggiunge i robot appartenenti a questa categoria
                 robots.filter(r => r.category === cat).forEach(r => {
                     grid.innerHTML += `
                         <div class="robot-card">
@@ -129,6 +147,14 @@
                                 <div class="robot-name">${r.name}</div>
                                 <div class="robot-type">${r.type}</div>
                                 <div class="robot-desc">${r.description}</div>
+                                
+                                ${r.video && r.video !== "#" && r.video !== "" ? `
+                                    <div class="robot-video-link">
+                                        <a href="${r.video}" target="_blank">
+                                            ▶ Watch Video
+                                        </a>
+                                    </div>
+                                ` : ''}
                             </div>
                         </div>
                     `;
@@ -136,7 +162,9 @@
                 section.appendChild(grid);
                 container.appendChild(section);
             });
-        } catch (e) { console.error("Error loading robots:", e); }
+        } catch (e) { 
+            console.error("Error loading robots.json. Make sure the file exists in /contents/", e); 
+        }
     }
     loadRobots();
 </script>
