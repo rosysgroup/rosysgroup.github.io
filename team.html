@@ -15,7 +15,7 @@
         nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; color: rgba(255,255,255,0.3); }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 
-        /* Header (Coerente con Index) */
+        /* Header */
         header { 
             background: white;
             padding: 60px 0; 
@@ -46,25 +46,16 @@
             padding-bottom: 10px;
         }
 
-        /* Griglia principale a due colonne */
         .team-grid {
             display: grid;
             grid-template-columns: 1fr 1fr; 
             gap: 60px 40px;
         }
 
-        /* Struttura Membro */
         .member-card {
             display: flex;
-            flex-direction: column;
-        }
-
-        /* Riga superiore: Foto (Ingrandita) e Nome */
-        .member-top-row {
-            display: flex;
-            align-items: center;
-            gap: 25px; 
-            margin-bottom: 15px;
+            align-items: center; /* Allinea verticalmente foto e testo */
+            gap: 25px;
         }
 
         .photo-wrapper {
@@ -77,16 +68,15 @@
         }
         .photo-wrapper img { width: 100%; height: 100%; object-fit: cover; }
         
-        .member-name-box { flex: 1; }
+        .member-info { flex: 1; display: flex; flex-direction: column; }
         .member-name { font-weight: bold; font-size: 1.3rem; color: #000; margin: 0; line-height: 1.2; }
-        .member-role { font-size: 1rem; color: #666; margin-top: 5px; }
+        .member-role { font-size: 1rem; color: #666; margin: 4px 0 10px 0; }
         
-        /* Riga inferiore: Links */
+        /* Links spostati sotto il ruolo */
         .member-links { 
             display: flex; 
-            gap: 20px; 
-            padding-top: 10px;
-            border-top: 1px solid #f0f0f0;
+            gap: 15px; 
+            margin-top: 5px;
         }
         .member-links a {
             text-decoration: none;
@@ -96,16 +86,15 @@
             text-transform: uppercase;
             transition: color 0.2s;
         }
-        .member-links a:hover { color: var(--primary); }
+        .member-links a:hover { color: var(--primary); text-decoration: underline; }
 
         footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
 
-        /* Responsive */
         @media (max-width: 950px) {
             .team-grid { grid-template-columns: 1fr; }
             .header-content { flex-direction: column-reverse; text-align: center; }
-            .member-top-row { gap: 20px; }
-            .photo-wrapper { flex: 0 0 130px; }
+            .member-card { flex-direction: column; text-align: center; }
+            .member-links { justify-content: center; }
         }
     </style>
 </head>
@@ -165,19 +154,17 @@
                     catMembers.forEach(m => {
                         grid.innerHTML += `
                             <div class="member-card">
-                                <div class="member-top-row">
-                                    <div class="photo-wrapper">
-                                        <img src="${m.photo}" alt="${m.name}" onerror="this.src='gallery/team/placeholder.jpg'">
-                                    </div>
-                                    <div class="member-name-box">
-                                        <div class="member-name">${m.name}</div>
-                                        <div class="member-role">${m.role}</div>
-                                    </div>
+                                <div class="photo-wrapper">
+                                    <img src="${m.photo}" alt="${m.name}" onerror="this.src='gallery/team/placeholder.jpg'">
                                 </div>
-                                <div class="member-links">
-                                    ${m.web && m.web !== "#" ? `<a href="${m.web}" target="_blank">Website</a>` : ''}
-                                    ${m.scholar && m.scholar !== "#" ? `<a href="${m.scholar}" target="_blank">Scholar</a>` : ''}
-                                    ${m.linkedin && m.linkedin !== "#" ? `<a href="${m.linkedin}" target="_blank">LinkedIn</a>` : ''}
+                                <div class="member-info">
+                                    <div class="member-name">${m.name}</div>
+                                    <div class="member-role">${m.role}</div>
+                                    <div class="member-links">
+                                        ${m.web && m.web !== "#" ? `<a href="${m.web}" target="_blank">Website</a>` : ''}
+                                        ${m.scholar && m.scholar !== "#" ? `<a href="${m.scholar}" target="_blank">Scholar</a>` : ''}
+                                        ${m.linkedin && m.linkedin !== "#" ? `<a href="${m.linkedin}" target="_blank">LinkedIn</a>` : ''}
+                                    </div>
                                 </div>
                             </div>
                         `;
