@@ -9,43 +9,40 @@
         :root {
             --primary: #002147; --accent: #0056b3; --max-width: 1100px;
         }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: #333; line-height: 1.6; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: #333; line-height: 1.6; background: white; }
 
         /* Navigation */
         nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 
-        /* Header RIDOTTO */
+        /* Header Compatto */
         header { background: white; padding: 25px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center; }
         .header-content { width: 100%; max-width: var(--max-width); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
-        .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); }
-        .header-logo-section img { max-height: 90px; }
+        .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); line-height: 1.1; }
+        .header-logo-section img { max-height: 90px; width: auto; display: block; }
 
         .container { max-width: var(--max-width); margin: 30px auto; padding: 0 20px; }
         
-        .lab-intro { font-size: 1.1rem; color: #555; margin-bottom: 30px; }
+        .lab-intro { font-size: 1.1rem; color: #555; margin-bottom: 30px; text-align: justify; }
 
         /* Gallery */
         .lab-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 50px; }
         .gallery-item { border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08); background: #f9f9f9; }
-        .gallery-item img { width: 100%; height: 220px; object-fit: cover; }
-        .gallery-caption { padding: 10px; font-size: 0.85rem; color: #666; text-align: center; }
+        .gallery-item img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .gallery-caption { padding: 12px; font-size: 0.85rem; color: #666; text-align: center; border-top: 1px solid #f0f0f0; background: white; }
 
-        /* Sezione Video e Mappa */
-        .lab-media-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 50px;
-        }
-        .media-box h3 { color: var(--primary); margin-bottom: 15px; border-left: 4px solid var(--accent); padding-left: 10px; }
+        /* Media Section (Video & Map) */
+        .lab-media-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
+        .media-box h3 { color: var(--primary); margin-bottom: 15px; border-left: 4px solid var(--accent); padding-left: 10px; font-size: 1.4rem; }
         
+        .address-text { font-size: 0.95rem; color: #555; margin-bottom: 15px; min-height: 1.5em; }
+
         .responsive-iframe {
-            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); background: #eee;
         }
         .responsive-iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 60px; }
+        footer { background: var(--primary); color: white; padding: 40px; text-align: center; margin-top: 80px; }
 
         @media (max-width: 900px) {
             .lab-media-section { grid-template-columns: 1fr; }
@@ -69,7 +66,7 @@
     <div class="header-content">
         <div class="header-text-section">
             <h1>Our Lab</h1>
-            <p style="color: #666;">Experimental Facilities & Infrastructure</p>
+            <p style="color: #666; margin-top: 5px;">Experimental Facilities & Infrastructure</p>
         </div>
         <div class="header-logo-section">
             <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
@@ -80,17 +77,21 @@
 <div class="container">
     <div id="lab-intro" class="lab-intro"></div>
     
-    <div class="lab-gallery" id="lab-gallery"></div>
+    <div class="lab-gallery" id="lab-gallery">
+        </div>
 
     <div class="lab-media-section">
         <div class="media-box">
             <h3>Lab Video Tour</h3>
+            <div class="address-text">See our research environment in action.</div>
             <div class="responsive-iframe">
                 <iframe id="lab-video" src="" allowfullscreen></iframe>
             </div>
         </div>
+
         <div class="media-box">
             <h3>Find Us</h3>
+            <div id="address-container" class="address-text"></div>
             <div class="responsive-iframe">
                 <iframe id="lab-map" src="" allowfullscreen loading="lazy"></iframe>
             </div>
@@ -106,19 +107,31 @@
             const response = await fetch('contents/lab.json');
             const data = await response.json();
 
+            // Description
             document.getElementById('lab-intro').innerText = data.description;
-            document.getElementById('lab-video').src = data.video_url;
-            document.getElementById('lab-map').src = data.location_embed;
+            
+            // Video & Map URLs
+            if(data.video_url) document.getElementById('lab-video').src = data.video_url;
+            if(data.location_embed) document.getElementById('lab-map').src = data.location_embed;
 
+            // Address Display
+            if(data.address) {
+                document.getElementById('address-container').innerHTML = 
+                    `<strong>Location:</strong> ${data.address}, ${data.cap} ${data.city} (${data.country})`;
+            }
+
+            // Gallery Loading
             const gallery = document.getElementById('lab-gallery');
-            data.gallery.forEach(img => {
-                gallery.innerHTML += `
-                    <div class="gallery-item">
-                        <img src="${img.src}" alt="${img.caption}" onerror="this.src='gallery/lab/placeholder.jpg'">
-                        <div class="gallery-caption">${img.caption}</div>
-                    </div>`;
-            });
-        } catch (e) { console.error("Error:", e); }
+            if(data.gallery) {
+                data.gallery.forEach(img => {
+                    gallery.innerHTML += `
+                        <div class="gallery-item">
+                            <img src="${img.src}" alt="${img.caption}" onerror="this.src='gallery/lab/placeholder.jpg'">
+                            <div class="gallery-caption">${img.caption}</div>
+                        </div>`;
+                });
+            }
+        } catch (e) { console.error("Error loading lab data:", e); }
     }
     loadLabData();
 </script>
