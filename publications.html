@@ -17,10 +17,11 @@
         .header-logo-section img { max-height: 100px; }
         .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; min-height: 600px; }
         
-        /* Custom styles for BibBase list */
-        #bibbase_header { margin-bottom: 30px; }
+        /* BibBase Styling */
         .bibbase_group_title { color: var(--primary) !important; font-size: 1.8rem !important; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 40px !important; }
-        .bibbase_paper_title { color: var(--accent) !important; }
+        
+        /* Error/Loading Message */
+        #bibbase-status { padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center; color: #666; }
 
         footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
         .footer-line { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 0.95rem; opacity: 0.9; }
@@ -53,8 +54,9 @@
     </div>
 </header>
 
-<div class="container">
-    <script src="https://bibbase.org/show?bib=https://raw.githubusercontent.com/rosysgroup/rosysgroup.github.io/main/contents/publications.bib&jsonp=1&group0=year&group1=type"></script>
+<div class="container" id="bib-container">
+    <div id="bibbase-status">Loading publications...</div>
+    <script src="https://bibbase.org/show?bib=https%3A%2F%2Frosysgroup.github.io%2Fcontents%2Fpublications.bib&jsonp=1&group0=year&group1=type"></script>
 </div>
 
 <footer>
@@ -68,6 +70,28 @@
         </div>
     </div>
 </footer>
+
+<script>
+    // Check if BibBase loaded correctly after 5 seconds
+    // This is a safety measure to prevent a blank page
+    setTimeout(function() {
+        const container = document.getElementById('bib-container');
+        const status = document.getElementById('bibbase-status');
+        
+        // If the container still only has the status message, show a fallback
+        if (container.children.length <= 2) {
+            status.innerHTML = `
+                <p><i class="fas fa-exclamation-circle"></i> Having trouble loading the list?</p>
+                <a href="contents/publications.bib" class="btn" style="color: var(--accent); text-decoration: underline;">
+                    Click here to view the BibTeX file directly.
+                </a>
+            `;
+        } else {
+            // Remove the loading message if BibBase content is present
+            status.style.display = 'none';
+        }
+    }, 5000);
+</script>
 
 </body>
 </html>
