@@ -20,29 +20,22 @@
 
         .container { max-width: var(--max-width); margin: 30px auto; padding: 0 20px; min-height: 600px; }
 
-        /* COMPACT BIBBASE OVERRIDES */
-        /* Reduce space between entries */
+        /* COMPACT & CLEAN OVERRIDES */
         .bibbase_paper { margin-bottom: 12px !important; line-height: 1.3 !important; font-size: 0.95rem !important; }
+        .bibbase_paper_title { color: var(--accent) !important; font-weight: 600 !important; font-size: 1rem !important; }
         
-        /* Compact titles */
-        .bibbase_paper_title { color: var(--accent) !important; font-weight: 600 !important; font-size: 1rem !important; display: inline; }
-        
-        /* Compact group titles (Years) */
+        /* Nasconde la riga dei link (bibtex, abstract, ecc.) */
+        .bibbase_paper_links { display: none !important; }
+
         .bibbase_group_title { 
             color: var(--primary) !important; 
-            font-size: 1.4rem !important; 
+            font-size: 1.3rem !important; 
             border-bottom: 1px solid #ddd; 
             margin-top: 25px !important; 
-            margin-bottom: 15px !important; 
+            margin-bottom: 10px !important; 
             padding-bottom: 5px;
+            text-transform: capitalize;
         }
-
-        /* Adjust author and venue style */
-        .bibbase_paper_author { color: #555 !important; }
-        .bibbase_paper_venue { font-style: italic !important; color: #777 !important; }
-
-        /* Hide unnecessary BibBase links if you want it cleaner */
-        .bibbase_paper_links { font-size: 0.85rem !important; margin-top: 2px !important; }
 
         footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
         .footer-line { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 0.95rem; opacity: 0.9; }
@@ -75,9 +68,32 @@
     </div>
 </header>
 
-<div class="container">
-    <script src="https://bibbase.org/show?bib=https%3A%2F%2Frosysgroup.github.io%2Fcontents%2Fpublications.bib&jsonp=1&group0=year&group1=type&theme=simple"></script>
+<div class="container" id="publications-container">
+    <script src="https://bibbase.org/show?bib=https%3A%2F%2Frosysgroup.github.io%2Fcontents%2Fpublications.bib&jsonp=1&group0=year&group1=type&theme=simple&hide=links"></script>
 </div>
+
+<script>
+    // Funzione per rinominare le categorie (Article -> Journal, Inproceedings -> Conference)
+    function renameCategories() {
+        const headers = document.querySelectorAll('.bibbase_group_title');
+        headers.forEach(h => {
+            let text = h.textContent.trim().toLowerCase();
+            if (text === 'article') {
+                h.textContent = 'Journals';
+            } else if (text === 'inproceedings') {
+                h.textContent = 'Conferences';
+            }
+        });
+    }
+
+    // Eseguiamo il controllo ogni secondo per i primi 5 secondi finché BibBase non ha finito di caricare
+    let attempts = 0;
+    const interval = setInterval(() => {
+        renameCategories();
+        attempts++;
+        if (attempts > 5) clearInterval(interval);
+    }, 1000);
+</script>
 
 <footer>
     <div class="footer-line">
