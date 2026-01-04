@@ -1,12 +1,22 @@
 [
   {
     "title": "Autonomous Navigation",
-    "image": "gallery/research/navigation.jpg",
-    "content": "Our research activities on autonomous navigation focus on: <ul><li><b>Slam:</b> Simultaneous Localization and Mapping.</li><li><b>Path Planning:</b> Optimization algorithms in dynamic environments.</li></ul>"
+    "image": "gallery/research/offroad_navigation.jpg",
+    "content": "Our research activities on autonomous navigation focus on: <ul><li>Slam: Simultaneous Localization and Mapping.</li><li>Path Planning: Optimization algorithms in dynamic environments.</li><li>Off-road navigation: Autonomous movement in unstructured environments.</li><li>Machine Learning: Advanced learning algorithms for robotic perception and control.</li></ul>"
   },
   {
     "title": "HRI & Smart Walkers",
-    "image": "gallery/research/hri.jpg",
-    "content": "Our research in Human-Robot Interaction focuses on developing intuitive control systems for smart walkers, assisting individuals with reduced mobility. We study: <ul><li>Intention Recognition via force sensors.</li><li>Shared Control Navigation.</li></ul>"
+    "image": "gallery/research/walker.jpg",
+    "content": "Our research in Human-Robot Interaction focuses on developing intuitive control systems for smart walkers, assisting individuals with reduced mobility. We study: <ul><li>Intention Recognition via force sensors.</li><li>Shared Control Navigation.</li><li>Prototype development: Design and realization of smart walker platforms.</li></ul>"
+  },
+  {
+    "title": "Beach Cleaning & Mobile Manipulation",
+    "image": "gallery/research/beach_cleaning.jpg",
+    "content": "Development of autonomous systems for environmental preservation, specifically focusing on: <ul><li>Mobile Manipulation: Coordination between robotic bases and arms for litter collection.</li><li>Object detection in sandy terrains.</li><li>Autonomous coverage for beach maintenance.</li></ul>"
+  },
+  {
+    "title": "Aerial Environmental Monitoring",
+    "image": "gallery/research/drone_monitoring.jpg",
+    "content": "Research on UAV platforms for safety and environmental inspection in hazardous areas: <ul><li>Environmental monitoring in dangerous or inaccessible locations.</li><li>Sensor fusion for real-time gas or radiation detection.</li><li>Multi-robot coordination for large-scale surveillance.</li></ul>"
   }
 ]
