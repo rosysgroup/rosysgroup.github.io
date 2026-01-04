@@ -7,43 +7,24 @@
     <link rel="icon" type="image/png" href="gallery/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #002147; --accent: #0056b3; --max-width: 1100px;
-        }
+        :root { --primary: #002147; --accent: #0056b3; --max-width: 1100px; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; color: #333; line-height: 1.6; background: #fff; }
-
-        /* Navigation */
         nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
-
-        /* Header */
-        header { 
-            background: white; padding: 20px 0; border-bottom: 1px solid #eee; 
-            display: flex; justify-content: center; height: 120px; align-items: center; 
-        }
-        .header-content { 
-            width: 100%; max-width: var(--max-width); padding: 0 20px; 
-            display: flex; align-items: center; justify-content: space-between; 
-        }
+        header { background: white; padding: 20px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center; height: 120px; align-items: center; }
+        .header-content { width: 100%; max-width: var(--max-width); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
         .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); }
         .header-logo-section img { max-height: 100px; }
-
         .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; min-height: 600px; }
-
-        /* BibBase Custom Styling overrides */
-        .bibbase_group_title { color: var(--primary) !important; font-size: 1.8rem !important; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 40px !important; }
-        .bibbase_paper_title { color: var(--accent) !important; font-weight: bold !important; }
         
-        /* Footer */
+        /* BibBase Overrides */
+        .bibbase_group_title { color: var(--primary) !important; font-size: 1.8rem !important; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 40px !important; }
+        
         footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
         .footer-line { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 0.95rem; opacity: 0.9; }
         .footer-socials { display: flex; gap: 20px; align-items: center; }
-        .footer-socials a { color: white; font-size: 1.4rem; text-decoration: none; transition: all 0.3s; display: inline-block; }
+        .footer-socials a { color: white; font-size: 1.4rem; text-decoration: none; transition: all 0.3s; }
         .footer-socials a:hover { color: var(--accent); transform: translateY(-3px); }
-
-        @media (max-width: 768px) {
-            .footer-line { flex-direction: column; gap: 15px; }
-        }
     </style>
 </head>
 <body>
@@ -71,7 +52,7 @@
 </header>
 
 <div class="container">
-    <script src="https://bibbase.org/show?bib=https://raw.githubusercontent.com/rosysgroup/rosysgroup.github.io/main/contents/publications.bib&jsonp=1&group0=year&group1=type"></script>
+    <script src="https://bibbase.org/show?bib=https%3A%2F%2Fraw.githubusercontent.com%2Frosysgroup%2Frosysgroup.github.io%2Fmain%2Fcontents%2Fpublications.bib&jsonp=1&group0=year&group1=type"></script>
 </div>
 
 <footer>
