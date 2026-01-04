@@ -6,113 +6,41 @@
     <title>Team – RoSys Group</title>
     <link rel="icon" type="image/png" href="gallery/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --primary: #002147; --accent: #0056b3; --bg: #ffffff; --text: #333; --max-width: 1100px;
+            --primary: #002147; --accent: #0056b3; --max-width: 1100px;
         }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text); background: white; line-height: 1.6; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: #333; line-height: 1.6; background: white; }
 
         nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 
-        header { 
-            background: white; 
-            padding: 5px 0; 
-            border-bottom: 1px solid #eee; 
-            display: flex; 
-            justify-content: center; 
-            height: 120px; 
-            align-items: center;
-        }
-        .header-content {
-            width: 100%; max-width: var(--max-width); padding: 0 20px;
-            display: flex; align-items: center; justify-content: space-between; gap: 30px;
-        }
-        .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); line-height: 1.1; }
-        .header-text-section p { margin: 5px 0 0 0; color: #666; font-size: 1rem; }
-        
-        .header-logo-section img { max-height: 110px; width: auto; display: block; }
+        header { background: white; padding: 5px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center; height: 120px; align-items: center; }
+        .header-content { width: 100%; max-width: var(--max-width); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+        .header-logo-section img { max-height: 110px; }
 
         .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
-        
-        .category-title {
-            font-size: 1.8rem; color: var(--primary); border-bottom: 2px solid #eee;
-            margin: 60px 0 30px 0; padding-bottom: 10px;
-        }
 
-        .team-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 60px 40px;
-        }
+        /* Members Section */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; margin-bottom: 80px; }
+        .member-card { text-align: center; background: #fff; padding: 20px; border-radius: 12px; transition: 0.3s; }
+        .member-card:hover { transform: translateY(-5px); }
+        .member-card img { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid #f0f0f0; }
+        .member-card h3 { margin: 10px 0 5px 0; color: var(--primary); }
+        .member-card p { margin: 0; color: #666; font-size: 0.9rem; }
 
-        .member-card {
-            display: flex; align-items: center; gap: 25px;
-        }
+        /* Students MD Styling */
+        .markdown-container table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .markdown-container th { text-align: left; background: #f8f9fa; padding: 12px; border-bottom: 2px solid #dee2e6; }
+        .markdown-container td { padding: 12px; border-bottom: 1px solid #eee; }
 
-        .photo-wrapper {
-            flex: 0 0 160px; aspect-ratio: 1 / 1; overflow: hidden;
-            border-radius: 8px; background: #f9f9f9; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .photo-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .member-info { flex: 1; display: flex; flex-direction: column; }
-        .member-name { font-weight: bold; font-size: 1.3rem; color: #000; margin: 0; line-height: 1.2; }
-        .member-role { font-size: 1rem; color: #666; margin: 4px 0 10px 0; }
-        
-        .member-links { 
-            display: flex; flex-wrap: wrap; gap: 15px; margin-top: 5px;
-        }
-        .member-links a {
-            text-decoration: none; font-size: 0.8rem; color: var(--accent);
-            font-weight: bold; text-transform: uppercase; transition: color 0.2s;
-        }
-        .member-links a:hover { color: var(--primary); text-decoration: underline; }
-
-        /* New Inline Footer Style */
-        footer { 
-            background: var(--primary); 
-            color: white; 
-            padding: 30px 20px; 
-            text-align: center; 
-            margin-top: 80px; 
-        }
-        .footer-line {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-        .footer-socials {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-        .footer-socials a { 
-            color: white; 
-            font-size: 1.4rem; 
-            text-decoration: none; 
-            transition: all 0.3s;
-            display: inline-block;
-        }
-        .footer-socials a:hover { 
-            color: var(--accent); 
-            transform: translateY(-3px);
-        }
-
-        @media (max-width: 950px) {
-            header { height: auto; padding: 20px 0; }
-            .header-content { flex-direction: column-reverse; text-align: center; }
-            .team-grid { grid-template-columns: 1fr; }
-            .member-card { flex-direction: column; text-align: center; }
-            .member-links { justify-content: center; }
-            .footer-line { flex-direction: column; gap: 15px; }
-        }
+        footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
+        .footer-line { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .footer-socials a { color: white; font-size: 1.4rem; margin: 0 10px; }
     </style>
 </head>
 <body>
-
 <nav>
     <a href="index.html">Home</a> <span>|</span>
     <a href="team.html">Team</a> <span>|</span>
@@ -125,83 +53,49 @@
 
 <header>
     <div class="header-content">
-        <div class="header-text-section">
-            <h1>Our Team</h1>
-            <p>Faculty, Researchers and Students</p>
-        </div>
-        <div class="header-logo-section">
-            <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
-        </div>
+        <div class="header-text-section"><h1>Our Team</h1><p>Researchers and Students</p></div>
+        <div class="header-logo-section"><img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo"></div>
     </div>
 </header>
 
-<div class="container" id="team-sections-container"></div>
+<div class="container">
+    <h2 style="color: var(--primary);">Faculty & Staff</h2>
+    <div class="team-grid" id="team-container"></div>
+
+    <h2 style="color: var(--primary); margin-top: 60px;">Student Researchers & Alumni</h2>
+    <div id="students-container" class="markdown-container"></div>
+</div>
 
 <footer>
     <div class="footer-line">
         <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
         <div class="footer-socials">
             <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
         </div>
     </div>
 </footer>
 
 <script>
-    const categories = [
-        "Head of the lab",
-        "Associate & Assistant professors",
-        "Research fellows",
-        "Engineers",
-        "PhD Students",
-        "Alumni"
-    ];
-
     async function loadTeam() {
         try {
-            const response = await fetch('contents/team.json');
-            const members = await response.json();
-            const container = document.getElementById('team-sections-container');
-
-            const excludeFields = ['name', 'role', 'category', 'photo'];
-
-            categories.forEach(cat => {
-                const catMembers = members.filter(m => m.category === cat);
-                if (catMembers.length > 0) {
-                    const section = document.createElement('div');
-                    section.innerHTML = `<h2 class="category-title">${cat}</h2>`;
-                    const grid = document.createElement('div');
-                    grid.className = 'team-grid';
-                    
-                    catMembers.forEach(m => {
-                        let linksHtml = '';
-                        Object.entries(m).forEach(([key, value]) => {
-                            if (!excludeFields.includes(key) && value && value !== "#" && value !== "") {
-                                const label = key.charAt(0).toUpperCase() + key.slice(1);
-                                linksHtml += `<a href="${value}" target="_blank">${label}</a>`;
-                            }
-                        });
-
-                        grid.innerHTML += `
-                            <div class="member-card">
-                                <div class="photo-wrapper">
-                                    <img src="${m.photo}" alt="${m.name}" onerror="this.src='gallery/team/placeholder.jpg'">
-                                </div>
-                                <div class="member-info">
-                                    <div class="member-name">${m.name}</div>
-                                    <div class="member-role">${m.role}</div>
-                                    <div class="member-links">${linksHtml}</div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    section.appendChild(grid);
-                    container.appendChild(section);
-                }
+            // Members
+            const resTeam = await fetch('contents/team.json');
+            const members = await resTeam.json();
+            const teamDiv = document.getElementById('team-container');
+            members.forEach(m => {
+                teamDiv.innerHTML += `<div class="member-card">
+                    <img src="${m.photo}" alt="${m.name}" onerror="this.src='gallery/placeholder.jpg'">
+                    <h3>${m.name}</h3>
+                    <p>${m.role}</p>
+                </div>`;
             });
-        } catch (e) { console.error("Error loading team:", e); }
+
+            // Students from MD
+            const resMD = await fetch('contents/students.md');
+            const mdText = await resMD.text();
+            document.getElementById('students-container').innerHTML = marked.parse(mdText);
+        } catch(e) { console.error(e); }
     }
     loadTeam();
 </script>
