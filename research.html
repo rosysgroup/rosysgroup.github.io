@@ -33,12 +33,10 @@
 
         /* Research Items */
         .research-item { 
-            display: flex; flex-direction: column; gap: 30px; margin-bottom: 100px; padding-bottom: 50px; border-bottom: 1px solid #f0f0f0;
+            display: flex; align-items: center; gap: 50px; margin-bottom: 80px; 
         }
-        .research-main { display: flex; align-items: flex-start; gap: 50px; }
-        
-        /* Alternate layout for even items */
-        .research-item:nth-child(even) .research-main { flex-direction: row-reverse; }
+        /* Alternate layout: one right, one left */
+        .research-item:nth-child(even) { flex-direction: row-reverse; }
 
         .research-image { 
             flex: 0 0 450px; border-radius: 12px; overflow: hidden; 
@@ -54,15 +52,6 @@
 
         .research-description { text-align: justify; color: #444; font-size: 1.05rem; }
 
-        /* Related Publications Section */
-        .related-publications { 
-            margin-top: 30px; background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee;
-        }
-        .related-publications h4 { 
-            margin-top: 0; color: var(--primary); border-left: 4px solid var(--accent); 
-            padding-left: 12px; margin-bottom: 20px; font-size: 1.2rem;
-        }
-        
         /* Footer */
         footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
         .footer-line { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 0.95rem; opacity: 0.9; }
@@ -71,7 +60,7 @@
         .footer-socials a:hover { color: var(--accent); transform: translateY(-3px); }
 
         @media (max-width: 950px) {
-            .research-main, .research-item:nth-child(even) .research-main { flex-direction: column; gap: 30px; }
+            .research-item, .research-item:nth-child(even) { flex-direction: column; gap: 30px; }
             .research-image { flex: 0 0 auto; width: 100%; }
             .header-content { flex-direction: column-reverse; text-align: center; }
             .footer-line { flex-direction: column; gap: 15px; }
@@ -118,7 +107,7 @@
 </footer>
 
 <script>
-    // Main function to load research projects from JSON
+    // Fetch and display research projects from JSON file
     async function loadResearch() {
         try {
             const response = await fetch('contents/research.json');
@@ -126,40 +115,23 @@
             const container = document.getElementById('research-container');
 
             projects.forEach(project => {
-                const item = document.createElement('div');
-                item.className = 'research-item';
-                
-                // Create unique ID for the publication target div
-                const bibTargetId = `bib-target-${project.keyword.replace(/\s+/g, '-')}`;
-
-                item.innerHTML = `
-                    <div class="research-main">
-                        <div class="research-image">
-                            <img src="${project.image}" alt="${project.title}" onerror="this.src='gallery/placeholder.jpg'">
-                        </div>
-                        <div class="research-text">
-                            <h2>${project.title}</h2>
-                            <div class="research-description">${project.content}</div>
-                        </div>
+                const section = document.createElement('div');
+                section.className = 'research-item';
+                section.innerHTML = `
+                    <div class="research-image">
+                        <img src="${project.image}" alt="${project.title}" onerror="this.src='gallery/placeholder.jpg'">
                     </div>
-                    <div class="related-publications">
-                        <h4><i class="fas fa-file-alt"></i> Related Publications</h4>
-                        <div id="${bibTargetId}">Loading papers related to "${project.keyword}"...</div>
+                    <div class="research-text">
+                        <h2>${project.title}</h2>
+                        <div class="research-description">${project.content}</div>
                     </div>
                 `;
-                container.appendChild(item);
-
-                // Dynamically inject BibBase script for each project
-                // The search parameter filters papers containing the keyword in authors, title, or venue
-                const script = document.createElement('script');
-                script.src = `https://bibbase.org/show?bib=contents/publications.bib&jsonp=1&search=${encodeURIComponent(project.keyword)}&target=%23${bibTargetId}`;
-                document.body.appendChild(script);
+                container.appendChild(section);
             });
         } catch (e) { 
-            console.error("Error loading research content:", e); 
+            console.error("Error loading research data:", e); 
         }
     }
-
     loadResearch();
 </script>
 </body>
