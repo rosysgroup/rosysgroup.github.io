@@ -118,19 +118,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 40px; /* Increased space between text and social icons */
+            gap: 40px;
             flex-wrap: wrap;
             font-size: 0.95rem;
             opacity: 0.9;
         }
         .footer-socials {
             display: flex;
-            gap: 20px; /* Space between icons */
+            gap: 20px;
             align-items: center;
         }
         .footer-socials a { 
             color: white; 
-            font-size: 1.4rem; /* Larger icons */
+            font-size: 1.4rem; 
             text-decoration: none; 
             transition: all 0.3s;
             display: inline-block;
@@ -143,7 +143,7 @@
         @media (max-width: 900px) {
             header { padding: 40px 0; }
             .header-content { flex-direction: column-reverse; text-align: center; }
-            .header-logo-section { margin-bottom: 30px; justify-content: center; }
+            .header-logo-section { margin-bottom: 30px; }
             .header-text-section h1 { font-size: 2.2rem; }
             .slide { height: 320px; }
             .footer-line { flex-direction: column; gap: 15px; }
@@ -176,8 +176,8 @@
 
 <div class="gallery-container">
     <div class="slides" id="gallery-slides"></div>
-    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+    <button class="prev" onclick="manualMove(-1)">&#10094;</button>
+    <button class="next" onclick="manualMove(1)">&#10095;</button>
 </div>
 
 <section id="news">
@@ -207,19 +207,43 @@
             const img = document.createElement('img');
             img.src = `gallery/images/image${i}.jpg`; 
             img.className = 'slide';
-            img.onerror = function() { this.remove(); };
+            
+            // If image fails to load, it is removed from the DOM
+            img.onerror = function() { 
+                this.remove();
+                // Adjust position after removal
+                updateSlidePosition();
+            };
+            
             slidesContainer.appendChild(img);
         }
+    }
+
+    function updateSlidePosition() {
+        const slides = document.querySelectorAll('.slide');
+        if (slides.length === 0) return;
+        
+        // Ensure currentSlide is within bounds
+        currentSlide = (currentSlide + slides.length) % slides.length;
+        slidesContainer.style.transform = `translateX(${-currentSlide * 100}%)`;
     }
 
     function moveSlide(n) {
         const slides = document.querySelectorAll('.slide');
         if (slides.length === 0) return;
         currentSlide = (currentSlide + n + slides.length) % slides.length;
-        slidesContainer.style.transform = `translateX(${-currentSlide * 100}%)`;
+        updateSlidePosition();
     }
 
-    setInterval(() => moveSlide(1), 6000);
+    // Auto-advance
+    let autoSlide = setInterval(() => moveSlide(1), 6000);
+
+    // Manual navigation (resets timer)
+    function manualMove(n) {
+        clearInterval(autoSlide);
+        moveSlide(n);
+        autoSlide = setInterval(() => moveSlide(1), 6000);
+    }
 
     async function loadMD(id, file) {
         try {
