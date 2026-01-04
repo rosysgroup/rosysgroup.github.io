@@ -6,9 +6,10 @@
     <title>Opportunities – RoSys Group</title>
     <link rel="icon" type="image/png" href="gallery/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --primary: #002147; --accent: #0056b3; --success: #28a745; --max-width: 1100px;
+            --primary: #002147; --accent: #0056b3; --max-width: 1100px; --success: #28a745;
         }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; color: #333; line-height: 1.6; background: #f4f7f9; }
 
@@ -31,57 +32,31 @@
 
         .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
 
-        /* Intro Section */
-        .intro-box { 
-            background: white; padding: 30px; border-radius: 12px; margin-bottom: 40px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;
-        }
-        .intro-box h2 { color: var(--primary); margin-top: 0; }
-
-        /* Opportunity Grid */
-        .opp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-
+        /* Thesis Grid */
+        .opp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 60px; }
         .opp-card { 
-            background: white; border-radius: 12px; padding: 25px; display: flex; flex-direction: column;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.06); transition: transform 0.3s ease; border-top: 5px solid var(--accent);
+            background: white; border-radius: 12px; padding: 25px; border-top: 5px solid var(--accent);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06); display: flex; flex-direction: column;
         }
-        .opp-card:hover { transform: translateY(-5px); }
+        .status-badge { align-self: flex-start; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; background: #e8f5e9; color: var(--success); margin-bottom: 15px; }
+        
+        /* Markdown Table Styling */
+        .markdown-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow-x: auto; }
+        .markdown-container table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .markdown-container th { text-align: left; background: #f8f9fa; padding: 12px; border-bottom: 2px solid #dee2e6; color: var(--primary); }
+        .markdown-container td { padding: 12px; border-bottom: 1px solid #eee; }
 
-        .status-badge {
-            align-self: flex-start; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; 
-            font-weight: bold; text-transform: uppercase; margin-bottom: 15px;
-            background: #e1f5fe; color: var(--accent);
-        }
-        .status-badge.open { background: #e8f5e9; color: var(--success); }
-
-        .opp-card h3 { margin: 0 0 10px 0; color: var(--primary); font-size: 1.3rem; min-height: 3.2rem; }
-        .opp-info { font-size: 0.9rem; color: #666; margin-bottom: 15px; }
-        .opp-info i { width: 20px; color: var(--accent); }
-
-        .opp-description { font-size: 0.95rem; color: #444; flex-grow: 1; margin-bottom: 20px; }
-
-        .btn-apply {
-            display: inline-block; padding: 10px 20px; background: var(--primary); color: white;
-            text-decoration: none; border-radius: 6px; font-weight: bold; text-align: center;
-            transition: background 0.3s;
-        }
-        .btn-apply:hover { background: var(--accent); }
+        .btn-apply { display: block; text-align: center; background: var(--primary); color: white; text-decoration: none; padding: 10px; border-radius: 6px; margin-top: auto; font-weight: bold; }
 
         /* Footer */
         footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
-        .footer-line { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 0.95rem; opacity: 0.9; }
-        .footer-socials { display: flex; gap: 20px; align-items: center; }
-        .footer-socials a { color: white; font-size: 1.4rem; text-decoration: none; transition: all 0.3s; display: inline-block; }
+        .footer-line { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 0.95rem; }
+        .footer-socials { display: flex; gap: 20px; }
+        .footer-socials a { color: white; font-size: 1.4rem; transition: 0.3s; }
         .footer-socials a:hover { color: var(--accent); transform: translateY(-3px); }
-
-        @media (max-width: 600px) {
-            .header-content { flex-direction: column-reverse; text-align: center; }
-            .footer-line { flex-direction: column; gap: 15px; }
-        }
     </style>
 </head>
 <body>
-
 <nav>
     <a href="index.html">Home</a> <span>|</span>
     <a href="team.html">Team</a> <span>|</span>
@@ -96,7 +71,7 @@
     <div class="header-content">
         <div class="header-text-section">
             <h1>Opportunities</h1>
-            <p>Join our team and shape the future of robotics</p>
+            <p>Thesis & Research Positions</p>
         </div>
         <div class="header-logo-section">
             <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
@@ -105,13 +80,11 @@
 </header>
 
 <div class="container">
-    <div class="intro-box">
-        <h2>Thesis & Research Positions</h2>
-        <p>We are always looking for motivated students for BSc and MSc thesis projects. Below you can find current open topics. If you have a specific idea or proposal, feel free to contact us!</p>
-    </div>
+    <h2 style="color: var(--primary);">Open Positions</h2>
+    <div class="opp-grid" id="opp-container"></div>
 
-    <div class="opp-grid" id="opp-container">
-        </div>
+    <h2 style="color: var(--primary); margin-top: 60px;">Completed Thesis Projects</h2>
+    <div id="students-container" class="markdown-container"></div>
 </div>
 
 <footer>
@@ -120,42 +93,35 @@
         <div class="footer-socials">
             <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
             <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
         </div>
     </div>
 </footer>
 
 <script>
-    async function loadOpportunities() {
+    async function loadData() {
         try {
-            const response = await fetch('contents/opportunities.json');
-            const data = await response.json();
-            const container = document.getElementById('opp-container');
-
-            data.forEach(opp => {
-                const isOpen = opp.status.toLowerCase() === 'open';
-                container.innerHTML += `
-                    <div class="opp-card">
-                        <span class="status-badge ${isOpen ? 'open' : ''}">${opp.status}</span>
-                        <h3>${opp.title}</h3>
-                        <div class="opp-info">
-                            <div><i class="fas fa-graduation-cap"></i> ${opp.degree}</div>
-                            <div><i class="fas fa-user-tie"></i> Supervisor: ${opp.supervisor}</div>
-                            <div><i class="fas fa-tag"></i> ${opp.tags}</div>
-                        </div>
-                        <div class="opp-description">${opp.description}</div>
-                        <a href="mailto:giuseppe.sutera@unict.it?subject=Thesis Inquiry: ${opp.title}" class="btn-apply">
-                            ${isOpen ? 'Inquire Now' : 'Join Waiting List'}
-                        </a>
-                    </div>
-                `;
+            // Load JSON positions
+            const resOpp = await fetch('contents/opportunities.json');
+            const opps = await resOpp.json();
+            const oppDiv = document.getElementById('opp-container');
+            opps.forEach(o => {
+                oppDiv.innerHTML += `<div class="opp-card">
+                    <span class="status-badge">Available</span>
+                    <h3>${o.title}</h3>
+                    <p style="font-size:0.9rem; color:#666;"><strong>Degree:</strong> ${o.degree}</p>
+                    <p>${o.description}</p>
+                    <a href="mailto:giuseppe.sutera@unict.it?subject=Thesis Inquiry: ${o.title}" class="btn-apply">Inquire Now</a>
+                </div>`;
             });
-        } catch (e) {
-            console.error("Error loading opportunities:", e);
-        }
+
+            // Load MD students
+            const resMD = await fetch('contents/students.md');
+            const mdText = await resMD.text();
+            document.getElementById('students-container').innerHTML = marked.parse(mdText);
+        } catch(e) { console.error(e); }
     }
-    loadOpportunities();
+    loadData();
 </script>
 </body>
 </html>
