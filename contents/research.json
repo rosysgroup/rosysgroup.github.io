@@ -5,6 +5,11 @@
     "content": "Our research activities on autonomous navigation focus on: <ul><li>Slam: Simultaneous Localization and Mapping.</li><li>Path Planning: Optimization algorithms in dynamic environments.</li><li>Off-road navigation: Autonomous movement in unstructured environments.</li><li>Machine Learning: Advanced learning algorithms for robotic perception and control.</li></ul>"
   },
   {
+    "title": "International Robotics Competitions",
+    "image": "gallery/research/competitions.jpg",
+    "content": "We actively participate in global challenges to push the limits of autonomous systems, with a strong track record in: <ul><li>MBZIRC 2017: Developed autonomous landing and treasure hunt algorithms.</li><li>MBZIRC 2020: Implemented advanced multi-robot coordination for autonomous construction and fire-fighting.</li><li>Aerial-Ground Cooperation: Executed integrated strategies for complex task execution in competitive scenarios.</li></ul>"
+  },
+  {
     "title": "HRI & Smart Walkers",
     "image": "gallery/research/hri.jpg",
     "content": "Our research in Human-Robot Interaction focuses on developing intuitive control systems for smart walkers, assisting individuals with reduced mobility. We study: <ul><li>Intention Recognition via force sensors.</li><li>Shared Control Navigation.</li><li>Prototype development: Design and realization of smart walker platforms.</li></ul>"
