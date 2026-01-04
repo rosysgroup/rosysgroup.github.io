@@ -73,7 +73,7 @@
 </div>
 
 <script>
-    // Funzione per rinominare le categorie (Article -> Journal, Inproceedings -> Conference)
+   
     function renameCategories() {
         const headers = document.querySelectorAll('.bibbase_group_title');
         headers.forEach(h => {
@@ -86,7 +86,7 @@
         });
     }
 
-    // Eseguiamo il controllo ogni secondo per i primi 5 secondi finché BibBase non ha finito di caricare
+    
     let attempts = 0;
     const interval = setInterval(() => {
         renameCategories();
