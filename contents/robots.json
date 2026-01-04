@@ -3,16 +3,49 @@
     "name": "Sandro",
     "type": "Unmanned Ground Vehicle",
     "category": "Ground Robots",
-    "description": "A rugged, all-terrain mobile platform used for autonomous navigation and mapping in outdoor environments.",
+    "description": "A mobile robotic manipulator for plastic waste collection from beaches.",
     "photo": "gallery/robots/sandro.jpg",
     "video": "https://www.youtube.com/watch?v=dNyUeop_Ihc"
+  },
+  {
+    "name": "Robovolc",
+    "type": "Unmanned Ground Vehicle",
+    "category": "Ground Robots",
+    "description": "RoboVolc is an advanced robotic platform specifically engineered for autonomous exploration in high-risk volcanic environments. Designed to withstand the harsh conditions of Mount Etna.",
+    "photo": "gallery/robots/arnold.jpg",
+    "video": "https://www.youtube.com/watch?v=vX-mW367Kfg"
+  },
+  {
+    "name": "Arnold",
+    "type": "Unmanned Ground Vehicle",
+    "category": "Ground Robots",
+    "description": "ARNOLD is an autonomous robotic platform designed for the automated disinfection of indoor surfaces and objects, minimizing the spread of pathogens such as COVID-19.",
+    "photo": "gallery/robots/arnold.jpg",
+    "video": "https://www.youtube.com/watch?v=0SggkFYsgTo"
+  },
+  {
+    "name": "TetheRobot",
+    "type": "Unmanned Aerial Vehicle",
+    "category": "Aerial Platforms",
+    "description": "Multi-robot system composed of a ground vehicle and a multi-copter connected each other with a tether.",
+    "photo": "gallery/robots/tether.jpg",
+    "video": "https://www.youtube.com/watch?v=cqG9-Qdp9_4&t=21s"
   },
   {
     "name": "DJI S900",
     "type": "Unmanned Aerial Vehicle",
     "category": "Aerial Platforms",
-    "description": "High-endurance drone equipped with RTK and cameras for multi-robot coordination.",
+    "description": "A high-payload endurance drone equipped with RTK and advanced imaging, specifically designed for international drone competitions and multi-robot coordination tasks.",
     "photo": "gallery/robots/s900.jpg",
+    "video": "https://youtu.be/bdf6_9IrX_I?si=b4-GnPcnBdZoECf0&t=617"
+  }
+  ,
+  {
+    "name": "DJI F550",
+    "type": "Unmanned Aerial Vehicle",
+    "category": "Aerial Platforms",
+    "description": "Drone equipped with RTK and cameras for multi-robot coordination.",
+    "photo": "gallery/robots/f550.jpg",
     "video": "#"
   }
 ]
