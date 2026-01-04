@@ -6,7 +6,6 @@
     <title>Research – RoSys Group</title>
     <link rel="icon" type="image/png" href="gallery/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
             --primary: #002147; --accent: #0056b3; --max-width: 1100px;
@@ -32,24 +31,29 @@
 
         .container { max-width: var(--max-width); margin: 60px auto; padding: 0 20px; }
 
-        /* Research Rows */
+        /* Research Items */
         .research-item { 
-            display: flex; align-items: flex-start; gap: 40px; margin-bottom: 80px; 
+            display: flex; align-items: center; gap: 50px; margin-bottom: 80px; 
         }
+        /* Alterna l'ordine: uno a dx, uno a sx */
+        .research-item:nth-child(even) { flex-direction: row-reverse; }
+
         .research-image { 
-            flex: 0 0 400px; border-radius: 12px; overflow: hidden; 
+            flex: 0 0 450px; border-radius: 12px; overflow: hidden; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
         }
-        .research-image img { width: 100%; height: auto; display: block; transition: transform 0.5s; }
-        .research-item:hover .research-image img { transform: scale(1.05); }
+        .research-image img { width: 100%; height: 300px; object-fit: cover; display: block; }
 
         .research-text { flex: 1; }
         .research-text h2 { 
             margin-top: 0; color: var(--primary); font-size: 1.8rem; 
             border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 5px; margin-bottom: 20px;
         }
-        .research-content-md { text-align: justify; color: #444; }
-        .research-content-md p { margin-bottom: 15px; }
+
+        /* Styling per il testo contenuto nel JSON */
+        .research-description { text-align: justify; color: #444; font-size: 1.05rem; }
+        .research-description ul { padding-left: 20px; margin-top: 10px; }
+        .research-description li { margin-bottom: 8px; }
 
         /* Footer */
         footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
@@ -58,8 +62,8 @@
         .footer-socials a { color: white; font-size: 1.4rem; text-decoration: none; transition: all 0.3s; display: inline-block; }
         .footer-socials a:hover { color: var(--accent); transform: translateY(-3px); }
 
-        @media (max-width: 900px) {
-            .research-item { flex-direction: column; gap: 20px; }
+        @media (max-width: 950px) {
+            .research-item, .research-item:nth-child(even) { flex-direction: column; gap: 30px; }
             .research-image { flex: 0 0 auto; width: 100%; }
             .header-content { flex-direction: column-reverse; text-align: center; }
             .footer-line { flex-direction: column; gap: 15px; }
@@ -112,10 +116,7 @@
             const projects = await response.json();
             const container = document.getElementById('research-container');
 
-            for (const project of projects) {
-                const mdResponse = await fetch(`contents/${project.md_file}`);
-                const mdText = await mdResponse.text();
-                
+            projects.forEach(project => {
                 const section = document.createElement('div');
                 section.className = 'research-item';
                 section.innerHTML = `
@@ -124,12 +125,14 @@
                     </div>
                     <div class="research-text">
                         <h2>${project.title}</h2>
-                        <div class="research-content-md">${marked.parse(mdText)}</div>
+                        <div class="research-description">${project.content}</div>
                     </div>
                 `;
                 container.appendChild(section);
-            }
-        } catch (e) { console.error("Error loading research data:", e); }
+            });
+        } catch (e) { 
+            console.error("Errore caricamento ricerca:", e); 
+        }
     }
     loadResearch();
 </script>
