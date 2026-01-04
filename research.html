@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research – RoSys Group</title>
+    <link rel="icon" type="image/png" href="gallery/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --primary: #002147; --accent: #0056b3; --max-width: 1100px;
+        }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: #333; line-height: 1.6; background: white; }
+
+        /* Navigation */
+        nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
+        nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+
+        /* Header */
+        header { 
+            background: white; padding: 5px 0; border-bottom: 1px solid #eee; 
+            display: flex; justify-content: center; height: 120px; align-items: center;
+        }
+        .header-content { 
+            width: 100%; max-width: var(--max-width); padding: 0 20px; 
+            display: flex; align-items: center; justify-content: space-between; gap: 30px; 
+        }
+        .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); line-height: 1.1; }
+        .header-text-section p { margin: 5px 0 0 0; color: #666; }
+        .header-logo-section img { max-height: 110px; width: auto; display: block; }
+
+        .container { max-width: var(--max-width); margin: 60px auto; padding: 0 20px; }
+
+        /* Research Rows */
+        .research-item { 
+            display: flex; align-items: flex-start; gap: 40px; margin-bottom: 80px; 
+        }
+        .research-image { 
+            flex: 0 0 400px; border-radius: 12px; overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+        }
+        .research-image img { width: 100%; height: auto; display: block; transition: transform 0.5s; }
+        .research-item:hover .research-image img { transform: scale(1.05); }
+
+        .research-text { flex: 1; }
+        .research-text h2 { 
+            margin-top: 0; color: var(--primary); font-size: 1.8rem; 
+            border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 5px; margin-bottom: 20px;
+        }
+        .research-content-md { text-align: justify; color: #444; }
+        .research-content-md p { margin-bottom: 15px; }
+
+        /* Footer */
+        footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
+        .footer-line { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 0.95rem; opacity: 0.9; }
+        .footer-socials { display: flex; gap: 20px; align-items: center; }
+        .footer-socials a { color: white; font-size: 1.4rem; text-decoration: none; transition: all 0.3s; display: inline-block; }
+        .footer-socials a:hover { color: var(--accent); transform: translateY(-3px); }
+
+        @media (max-width: 900px) {
+            .research-item { flex-direction: column; gap: 20px; }
+            .research-image { flex: 0 0 auto; width: 100%; }
+            .header-content { flex-direction: column-reverse; text-align: center; }
+            .footer-line { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a> <span>|</span>
+    <a href="team.html">Team</a> <span>|</span>
+    <a href="robots.html">Robots</a> <span>|</span>
+    <a href="lab.html">Lab</a> <span>|</span>
+    <a href="publications.html">Publications</a> <span>|</span>
+    <a href="research.html">Research</a> <span>|</span>
+    <a href="opportunity.html">Opportunity</a>
+</nav>
+
+<header>
+    <div class="header-content">
+        <div class="header-text-section">
+            <h1>Research</h1>
+            <p>Advancing Robotics and Autonomous Systems</p>
+        </div>
+        <div class="header-logo-section">
+            <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
+        </div>
+    </div>
+</header>
+
+<div class="container" id="research-container">
+    </div>
+
+<footer>
+    <div class="footer-line">
+        <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    async function loadResearch() {
+        try {
+            const response = await fetch('contents/research.json');
+            const projects = await response.json();
+            const container = document.getElementById('research-container');
+
+            for (const project of projects) {
+                const mdResponse = await fetch(`contents/${project.md_file}`);
+                const mdText = await mdResponse.text();
+                
+                const section = document.createElement('div');
+                section.className = 'research-item';
+                section.innerHTML = `
+                    <div class="research-image">
+                        <img src="${project.image}" alt="${project.title}" onerror="this.src='gallery/placeholder.jpg'">
+                    </div>
+                    <div class="research-text">
+                        <h2>${project.title}</h2>
+                        <div class="research-content-md">${marked.parse(mdText)}</div>
+                    </div>
+                `;
+                container.appendChild(section);
+            }
+        } catch (e) { console.error("Error loading research data:", e); }
+    }
+    loadResearch();
+</script>
+</body>
+</html>
