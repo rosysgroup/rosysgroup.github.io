@@ -1,12 +1,12 @@
 [
   {
     "title": "Autonomous Navigation",
-    "image": "gallery/research/offroad_navigation.jpg",
+    "image": "gallery/research/navigation.jpg",
     "content": "Our research activities on autonomous navigation focus on: <ul><li>Slam: Simultaneous Localization and Mapping.</li><li>Path Planning: Optimization algorithms in dynamic environments.</li><li>Off-road navigation: Autonomous movement in unstructured environments.</li><li>Machine Learning: Advanced learning algorithms for robotic perception and control.</li></ul>"
   },
   {
     "title": "HRI & Smart Walkers",
-    "image": "gallery/research/walker.jpg",
+    "image": "gallery/research/hri.jpg",
     "content": "Our research in Human-Robot Interaction focuses on developing intuitive control systems for smart walkers, assisting individuals with reduced mobility. We study: <ul><li>Intention Recognition via force sensors.</li><li>Shared Control Navigation.</li><li>Prototype development: Design and realization of smart walker platforms.</li></ul>"
   },
   {
