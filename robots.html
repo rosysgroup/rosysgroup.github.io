@@ -12,31 +12,14 @@
         }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text); background: white; line-height: 1.6; }
 
-        /* Navigation */
         nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 
-        /* Header COMPATTO */
-        header { 
-            background: white; 
-            padding: 5px 0; 
-            border-bottom: 1px solid #eee; 
-            display: flex; 
-            justify-content: center; 
-            height: 120px; 
-            align-items: center;
-        }
-        .header-content {
-            width: 100%; max-width: var(--max-width); padding: 0 20px;
-            display: flex; align-items: center; justify-content: space-between; gap: 30px;
-        }
+        header { background: white; padding: 5px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center; height: 120px; align-items: center; }
+        .header-content { width: 100%; max-width: var(--max-width); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
         .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); line-height: 1.1; }
-        .header-text-section p { margin: 5px 0 0 0; color: #666; font-size: 1rem; }
-        
-        /* Logo Ingrandito */
         .header-logo-section img { max-height: 110px; width: auto; display: block; }
 
-        /* Robots Container */
         .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
         
         .category-title {
@@ -44,83 +27,57 @@
             margin: 50px 0 30px 0; padding-bottom: 10px;
         }
 
+        /* Adjusted grid for larger images */
         .robots-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; 
-            gap: 40px;
+            grid-template-columns: 1fr; /* Stacked for better visibility of large images */
+            gap: 50px;
         }
 
         .robot-card {
             display: flex;
-            align-items: flex-start;
-            gap: 20px;
+            align-items: center;
+            gap: 40px; /* Increased gap */
             background: #fff;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 12px;
             transition: transform 0.2s;
+            border: 1px solid #f0f0f0;
         }
-        .robot-card:hover { transform: translateY(-3px); }
+        .robot-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
+        /* DOUBLED IMAGE SIZE AREA */
         .robot-photo {
-            flex: 0 0 160px; 
-            aspect-ratio: 4 / 3; 
+            flex: 0 0 350px; /* Increased from 160px to 350px */
+            height: 250px; 
             overflow: hidden;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .robot-photo img { width: 100%; height: 100%; object-fit: cover; }
         
         .robot-info { flex: 1; }
-        .robot-name { font-weight: bold; font-size: 1.3rem; color: #000; margin: 0; }
-        .robot-type { font-size: 0.8rem; color: var(--accent); font-weight: 600; text-transform: uppercase; }
-        .robot-desc { font-size: 0.9rem; color: #555; margin-top: 8px; text-align: justify; }
+        .robot-name { font-weight: bold; font-size: 1.6rem; color: #000; margin: 0; }
+        .robot-type { font-size: 0.9rem; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 10px; }
+        .robot-desc { font-size: 1rem; color: #444; text-align: justify; }
 
-        .robot-video-link { margin-top: 10px; }
+        .robot-video-link { margin-top: 15px; }
         .robot-video-link a {
-            text-decoration: none; color: var(--yt-red); font-weight: bold; font-size: 0.8rem;
-            display: inline-flex; align-items: center; gap: 5px;
+            text-decoration: none; color: var(--yt-red); font-weight: bold; font-size: 0.9rem;
+            display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--yt-red);
+            padding: 5px 12px; border-radius: 20px; transition: all 0.3s;
         }
+        .robot-video-link a:hover { background: var(--yt-red); color: white; }
 
-        /* NEW INLINE FOOTER */
-        footer { 
-            background: var(--primary); 
-            color: white; 
-            padding: 30px 20px; 
-            text-align: center; 
-            margin-top: 80px; 
-        }
-        .footer-line {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-        .footer-socials {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-        .footer-socials a { 
-            color: white; 
-            font-size: 1.4rem; 
-            text-decoration: none; 
-            transition: all 0.3s;
-            display: inline-block;
-        }
-        .footer-socials a:hover { 
-            color: var(--accent); 
-            transform: translateY(-3px);
-        }
+        footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
+        .footer-line { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 0.95rem; opacity: 0.9; }
+        .footer-socials { display: flex; gap: 20px; align-items: center; }
+        .footer-socials a { color: white; font-size: 1.4rem; text-decoration: none; transition: all 0.3s; }
+        .footer-socials a:hover { color: var(--accent); transform: translateY(-3px); }
 
         @media (max-width: 900px) {
-            header { height: auto; padding: 20px 0; }
-            .header-content { flex-direction: column-reverse; text-align: center; }
-            .robots-grid { grid-template-columns: 1fr; }
-            .robot-card { flex-direction: column; align-items: center; text-align: center; }
-            .footer-line { flex-direction: column; gap: 15px; }
+            .robot-card { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .robot-photo { flex: 0 0 auto; width: 100%; height: auto; aspect-ratio: 16/9; }
         }
     </style>
 </head>
@@ -165,7 +122,8 @@
 <script>
     async function loadRobots() {
         try {
-            const response = await fetch('contents/robots.json');
+            // Added a timestamp to the URL to bypass browser cache
+            const response = await fetch('contents/robots.json?t=' + Date.now());
             const robots = await response.json();
             const container = document.getElementById('robots-container');
 
@@ -185,13 +143,13 @@
                                 <img src="${r.photo}" alt="${r.name}" onerror="this.src='gallery/robots/placeholder.jpg'">
                             </div>
                             <div class="robot-info">
-                                <div class="robot-name">${r.name}</div>
                                 <div class="robot-type">${r.type}</div>
+                                <div class="robot-name">${r.name}</div>
                                 <div class="robot-desc">${r.description}</div>
                                 ${r.video && r.video !== "#" && r.video !== "" ? `
                                     <div class="robot-video-link">
                                         <a href="${r.video}" target="_blank">
-                                            <i class="fab fa-youtube"></i> VIDEO
+                                            <i class="fab fa-youtube"></i> WATCH VIDEO
                                         </a>
                                     </div>
                                 ` : ''}
