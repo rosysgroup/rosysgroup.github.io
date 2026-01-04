@@ -9,49 +9,85 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --primary: #002147; --accent: #0056b3; --max-width: 1100px;
+            --primary: #002147; --accent: #0056b3; --bg: #ffffff; --text: #333; --max-width: 1100px;
         }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: #333; line-height: 1.6; background: white; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text); background: white; line-height: 1.6; }
 
         nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 
-        header { background: white; padding: 20px 0; border-bottom: 1px solid #eee; display: flex; justify-content: center; height: 120px; align-items: center; }
-        .header-content { width: 100%; max-width: var(--max-width); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
-        .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); }
-        .header-logo-section img { max-height: 100px; }
+        header { 
+            background: white; 
+            padding: 5px 0; 
+            border-bottom: 1px solid #eee; 
+            display: flex; 
+            justify-content: center; 
+            height: 120px; 
+            align-items: center;
+        }
+        .header-content {
+            width: 100%; max-width: var(--max-width); padding: 0 20px;
+            display: flex; align-items: center; justify-content: space-between; gap: 30px;
+        }
+        .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); line-height: 1.1; }
+        .header-text-section p { margin: 5px 0 0 0; color: #666; font-size: 1rem; }
+        .header-logo-section img { max-height: 110px; width: auto; display: block; }
 
         .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
-
-        /* Faculty & Staff Grid - Original Formatting */
-        .team-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 40px; 
-            margin-bottom: 80px; 
+        
+        .category-title {
+            font-size: 1.8rem; color: var(--primary); border-bottom: 2px solid #eee;
+            margin: 60px 0 30px 0; padding-bottom: 10px;
         }
-        .member-card { text-align: center; }
-        .member-card img { 
-            width: 200px; 
-            height: 200px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            margin-bottom: 20px; 
-            border: 5px solid #f0f0f0;
-            transition: border-color 0.3s;
+
+        .team-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px 40px;
         }
-        .member-card:hover img { border-color: var(--accent); }
-        .member-card h3 { margin: 10px 0 5px 0; color: var(--primary); font-size: 1.4rem; }
-        .member-card p { margin: 0; color: #666; font-weight: 500; }
 
-        /* Students MD Styling - Table at the end */
-        .markdown-container { margin-top: 40px; overflow-x: auto; }
-        .markdown-container table { width: 100%; border-collapse: collapse; margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
-        .markdown-container th { background: var(--primary); color: white; padding: 15px; text-align: left; }
-        .markdown-container td { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
-        .markdown-container tr:hover { background: #f1f7ff; }
+        .member-card {
+            display: flex; align-items: center; gap: 25px;
+        }
 
-        footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
+        .photo-wrapper {
+            flex: 0 0 160px; aspect-ratio: 1 / 1; overflow: hidden;
+            border-radius: 8px; background: #f9f9f9; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .photo-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .member-info { flex: 1; display: flex; flex-direction: column; }
+        .member-name { font-weight: bold; font-size: 1.3rem; color: #000; margin: 0; line-height: 1.2; }
+        .member-role { font-size: 1rem; color: #666; margin: 4px 0 10px 0; }
+        
+        .member-links { 
+            display: flex; flex-wrap: wrap; gap: 15px; margin-top: 5px;
+        }
+        .member-links a {
+            text-decoration: none; font-size: 0.8rem; color: var(--accent);
+            font-weight: bold; text-transform: uppercase; transition: color 0.2s;
+        }
+        .member-links a:hover { color: var(--primary); text-decoration: underline; }
+
+        /* Student List Table Styling */
+        .markdown-container { margin-top: 30px; overflow-x: auto; }
+        .markdown-container table { width: 100%; border-collapse: collapse; margin-bottom: 50px; }
+        .markdown-container th { text-align: left; background: #f8f9fa; padding: 12px; border-bottom: 2px solid #dee2e6; color: var(--primary); font-size: 0.9rem; }
+        .markdown-container td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; color: #444; }
+
+        footer { 
+            background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; 
+        }
+        .footer-line { display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 0.95rem; opacity: 0.9; }
+        .footer-socials { display: flex; gap: 20px; align-items: center; }
+        .footer-socials a { color: white; font-size: 1.4rem; text-decoration: none; transition: all 0.3s; display: inline-block; }
+        .footer-socials a:hover { color: var(--accent); transform: translateY(-3px); }
+
+        @media (max-width: 950px) {
+            header { height: auto; padding: 20px 0; }
+            .header-content { flex-direction: column-reverse; text-align: center; }
+            .team-grid { grid-template-columns: 1fr; }
+            .member-card { flex-direction: column; text-align: center; }
+            .member-links { justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -70,7 +106,7 @@
     <div class="header-content">
         <div class="header-text-section">
             <h1>Our Team</h1>
-            <p>Researchers and Staff Members</p>
+            <p>Faculty, Researchers and Students</p>
         </div>
         <div class="header-logo-section">
             <img src="gallery/LOGO_Rosys_University.png" alt="RoSys Logo">
@@ -78,57 +114,97 @@
     </div>
 </header>
 
-<div class="container">
-    <h2 style="color: var(--primary); margin-bottom: 40px;">Faculty & Staff</h2>
-    <div class="team-grid" id="team-container">
-        </div>
-
-    <hr style="border: 0; border-top: 1px solid #eee; margin: 80px 0 60px 0;">
-
-    <h2 style="color: var(--primary);"><i class="fas fa-user-graduate"></i> Student Researchers & Alumni</h2>
-    <p>List of students who are currently conducting or have completed their research at RoSys Lab:</p>
-    <div id="students-md-list" class="markdown-container">
-        <p>Loading student database...</p>
-    </div>
-</div>
+<div class="container" id="team-sections-container"></div>
 
 <footer>
     <div class="footer-line">
         <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
+        </div>
     </div>
 </footer>
 
 <script>
-    async function loadData() {
-        try {
-            // Load Faculty & Staff from team.json
-            const teamRes = await fetch('contents/team.json');
-            const teamData = await teamRes.json();
-            const teamContainer = document.getElementById('team-container');
-            
-            teamData.forEach(member => {
-                teamContainer.innerHTML += `
-                    <div class="member-card">
-                        <img src="${member.photo}" alt="${member.name}" onerror="this.src='gallery/placeholder.jpg'">
-                        <h3>${member.name}</h3>
-                        <p>${member.role}</p>
-                    </div>
-                `;
-            });
+    const categories = [
+        "Head of the lab",
+        "Associate & Assistant professors",
+        "Research fellows",
+        "Engineers",
+        "PhD Students",
+        "Alumni"
+    ];
 
-            // Load Students from students.md
-            const mdRes = await fetch('contents/students.md');
-            if (mdRes.ok) {
-                const mdText = await mdRes.text();
-                document.getElementById('students-md-list').innerHTML = marked.parse(mdText);
+    async function loadTeam() {
+        try {
+            const response = await fetch('contents/team.json');
+            const members = await response.json();
+            const container = document.getElementById('team-sections-container');
+            const excludeFields = ['name', 'role', 'category', 'photo'];
+
+            for (const cat of categories) {
+                const catMembers = members.filter(m => m.category === cat);
+                
+                if (catMembers.length > 0 || cat === "Alumni") {
+                    const section = document.createElement('div');
+                    section.innerHTML = `<h2 class="category-title">${cat}</h2>`;
+                    
+                    const grid = document.createElement('div');
+                    grid.className = 'team-grid';
+                    
+                    catMembers.forEach(m => {
+                        let linksHtml = '';
+                        Object.entries(m).forEach(([key, value]) => {
+                            if (!excludeFields.includes(key) && value && value !== "#" && value !== "") {
+                                const label = key.charAt(0).toUpperCase() + key.slice(1);
+                                linksHtml += `<a href="${value}" target="_blank">${label}</a>`;
+                            }
+                        });
+
+                        grid.innerHTML += `
+                            <div class="member-card">
+                                <div class="photo-wrapper">
+                                    <img src="${m.photo}" alt="${m.name}" onerror="this.src='gallery/team/placeholder.jpg'">
+                                </div>
+                                <div class="member-info">
+                                    <div class="member-name">${m.name}</div>
+                                    <div class="member-role">${m.role}</div>
+                                    <div class="member-links">${linksHtml}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    section.appendChild(grid);
+                    container.appendChild(section);
+
+                    // Se abbiamo appena renderizzato la categoria Alumni, appendiamo la tabella MD
+                    if (cat === "Alumni") {
+                        await appendStudentTable(section);
+                    }
+                }
             }
-        } catch (error) {
-            console.error('Error loading content:', error);
-        }
+        } catch (e) { console.error("Error loading team:", e); }
     }
 
-    loadData();
-</script>
+    async function appendStudentTable(parentSection) {
+        try {
+            const response = await fetch('contents/students.md');
+            if (response.ok) {
+                const markdownText = await response.text();
+                const mdContainer = document.createElement('div');
+                mdContainer.className = 'markdown-container';
+                mdContainer.style.marginTop = "40px";
+                mdContainer.innerHTML = marked.parse(markdownText);
+                parentSection.appendChild(mdContainer);
+            }
+        } catch (e) { console.error("Error fetching students.md:", e); }
+    }
 
+    loadTeam();
+</script>
 </body>
 </html>
