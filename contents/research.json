@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Autonomous Navigation",
+    "image": "gallery/research/navigation.jpg",
+    "md_file": "research_navigation.md"
+  },
+  {
+    "title": "Human-Robot Interaction",
+    "image": "gallery/research/hri.jpg",
+    "md_file": "research_hri.md"
+  }
+]
