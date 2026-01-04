@@ -12,7 +12,7 @@
     "type": "Unmanned Ground Vehicle",
     "category": "Ground Robots",
     "description": "RoboVolc is an advanced robotic platform specifically engineered for autonomous exploration in high-risk volcanic environments. Designed to withstand the harsh conditions of Mount Etna.",
-    "photo": "gallery/robots/arnold.jpg",
+    "photo": "gallery/robots/robovolc.jpg",
     "video": "https://www.youtube.com/watch?v=vX-mW367Kfg"
   },
   {
@@ -33,7 +33,7 @@
   },
   {
     "name": "TetheRobot",
-    "type": "Unmanned Aerial Vehicle",
+    "type": "Multi-Robot System ",
     "category": "Aerial Platforms",
     "description": "Multi-robot system composed of a ground vehicle and a multi-copter connected each other with a tether.",
     "photo": "gallery/robots/tether.jpg",
