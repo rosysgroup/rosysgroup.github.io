@@ -16,7 +16,7 @@
         nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 
-        /* Header COMPATTO (Stile Lab) */
+        /* Header COMPATTO */
         header { 
             background: white; 
             padding: 5px 0; 
@@ -81,24 +81,46 @@
             display: inline-flex; align-items: center; gap: 5px;
         }
 
-        /* Footer con Social */
+        /* NEW INLINE FOOTER */
         footer { 
-            background: var(--primary); color: white; padding: 40px 20px; 
-            text-align: center; margin-top: 80px; 
+            background: var(--primary); 
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center; 
+            margin-top: 80px; 
         }
-        .social-links { margin-bottom: 20px; }
-        .social-links a { 
-            color: white; font-size: 1.5rem; margin: 0 15px; 
-            text-decoration: none; opacity: 0.8; transition: opacity 0.3s;
+        .footer-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            opacity: 0.9;
         }
-        .social-links a:hover { opacity: 1; color: var(--accent); }
-        .footer-credits { font-size: 0.9rem; opacity: 0.7; }
+        .footer-socials {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .footer-socials a { 
+            color: white; 
+            font-size: 1.4rem; 
+            text-decoration: none; 
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .footer-socials a:hover { 
+            color: var(--accent); 
+            transform: translateY(-3px);
+        }
 
         @media (max-width: 900px) {
             header { height: auto; padding: 20px 0; }
             .header-content { flex-direction: column-reverse; text-align: center; }
             .robots-grid { grid-template-columns: 1fr; }
             .robot-card { flex-direction: column; align-items: center; text-align: center; }
+            .footer-line { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
@@ -126,18 +148,17 @@
     </div>
 </header>
 
-<div class="container" id="robots-container">
-    </div>
+<div class="container" id="robots-container"></div>
 
 <footer>
-    <div class="social-links">
-        <a href="https://www.linkedin.com/company/tuo-profilo" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/tuo-canale" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://github.com/tuo-github" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="mailto:tuamail@esempio.com" title="Email"><i class="fas fa-envelope"></i></a>
-    </div>
-    <div class="footer-credits">
-        &copy; 2026 RoSys Group - All Rights Reserved
+    <div class="footer-line">
+        <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
+        </div>
     </div>
 </footer>
 
