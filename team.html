@@ -12,11 +12,9 @@
         }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; color: var(--text); background: white; line-height: 1.6; }
 
-        /* Navigation */
         nav { background: var(--primary); padding: 18px 0; position: sticky; top: 0; z-index: 2000; text-align: center; }
         nav a { margin: 0 18px; text-decoration: none; font-weight: bold; color: white; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 
-        /* Header COMPATTO (Stile Lab/Robots) */
         header { 
             background: white; 
             padding: 5px 0; 
@@ -33,10 +31,8 @@
         .header-text-section h1 { margin: 0; font-size: 2.2rem; color: var(--primary); line-height: 1.1; }
         .header-text-section p { margin: 5px 0 0 0; color: #666; font-size: 1rem; }
         
-        /* Logo Ingrandito */
         .header-logo-section img { max-height: 110px; width: auto; display: block; }
 
-        /* Team Container */
         .container { max-width: var(--max-width); margin: 40px auto; padding: 0 20px; }
         
         .category-title {
@@ -62,7 +58,6 @@
         .member-name { font-weight: bold; font-size: 1.3rem; color: #000; margin: 0; line-height: 1.2; }
         .member-role { font-size: 1rem; color: #666; margin: 4px 0 10px 0; }
         
-        /* Links style */
         .member-links { 
             display: flex; flex-wrap: wrap; gap: 15px; margin-top: 5px;
         }
@@ -72,18 +67,39 @@
         }
         .member-links a:hover { color: var(--primary); text-decoration: underline; }
 
-        /* Footer Moderno con Social */
+        /* New Inline Footer Style */
         footer { 
-            background: var(--primary); color: white; padding: 40px 20px; 
-            text-align: center; margin-top: 80px; 
+            background: var(--primary); 
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center; 
+            margin-top: 80px; 
         }
-        .social-links { margin-bottom: 20px; }
-        .social-links a { 
-            color: white; font-size: 1.5rem; margin: 0 15px; 
-            text-decoration: none; opacity: 0.8; transition: opacity 0.3s;
+        .footer-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            opacity: 0.9;
         }
-        .social-links a:hover { opacity: 1; color: var(--accent); }
-        .footer-credits { font-size: 0.9rem; opacity: 0.7; }
+        .footer-socials {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .footer-socials a { 
+            color: white; 
+            font-size: 1.4rem; 
+            text-decoration: none; 
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .footer-socials a:hover { 
+            color: var(--accent); 
+            transform: translateY(-3px);
+        }
 
         @media (max-width: 950px) {
             header { height: auto; padding: 20px 0; }
@@ -91,6 +107,7 @@
             .team-grid { grid-template-columns: 1fr; }
             .member-card { flex-direction: column; text-align: center; }
             .member-links { justify-content: center; }
+            .footer-line { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
@@ -121,14 +138,14 @@
 <div class="container" id="team-sections-container"></div>
 
 <footer>
-    <div class="social-links">
-        <a href="https://www.linkedin.com/company/tuo-profilo" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/tuo-canale" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://github.com/tuo-github" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="mailto:tuamail@esempio.com" title="Email"><i class="fas fa-envelope"></i></a>
-    </div>
-    <div class="footer-credits">
-        &copy; 2026 RoSys Group - All Rights Reserved
+    <div class="footer-line">
+        <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
+        </div>
     </div>
 </footer>
 
@@ -184,7 +201,7 @@
                     container.appendChild(section);
                 }
             });
-        } catch (e) { console.error("Errore caricamento team:", e); }
+        } catch (e) { console.error("Error loading team:", e); }
     }
     loadTeam();
 </script>
