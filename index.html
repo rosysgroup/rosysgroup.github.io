@@ -19,7 +19,6 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; color: var(--text); line-height: 1.6; background-color: var(--bg); }
 
-        /* Navigation */
         nav {
             background: var(--primary);
             padding: 18px 0;
@@ -40,14 +39,13 @@
         }
         nav a:hover { color: #bdc3c7; }
 
-        /* Header ESPANSO: Contiene tutto il testo About */
         header { 
             background: white;
-            padding: 60px 0; /* Spazio generoso come all'inizio */
+            padding: 60px 0;
             border-bottom: 1px solid #eee;
             display: flex;
             justify-content: center;
-            min-height: 200px; /* Altezza minima, ma può crescere */
+            min-height: 200px;
         }
 
         .header-content {
@@ -73,17 +71,14 @@
             color: #444;
             max-width: 750px;
             text-align: justify;
-            /* Rimosse limitazioni di righe per mostrare tutto */
         }
 
-        /* Logo grande come richiesto */
         .header-logo-section img {
             max-height: 160px; 
             width: auto;
             display: block;
         }
 
-        /* Gallery Slider */
         .gallery-container {
             position: relative;
             max-width: var(--max-width);
@@ -109,23 +104,40 @@
         }
         .next { right: 15px; } .prev { left: 15px; }
 
-        /* Sections */
         section { max-width: var(--max-width); margin: 60px auto; padding: 0 20px; }
         h2 { font-size: 2.2rem; border-left: 6px solid var(--primary); padding-left: 20px; color: var(--primary); margin-bottom: 30px; }
 
-        /* Footer Moderno con Linkedin, Youtube, Instagram */
         footer { 
-            background: var(--primary); color: white; padding: 40px 20px; 
-            text-align: center; margin-top: 80px; 
+            background: var(--primary); 
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center; 
+            margin-top: 80px; 
         }
-        .social-links { margin-bottom: 20px; }
-        .social-links a { 
-            color: white; font-size: 1.6rem; margin: 0 15px; 
-            text-decoration: none; opacity: 0.8; transition: all 0.3s;
-            display: inline-block;
+        .footer-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            opacity: 0.9;
         }
-        .social-links a:hover { opacity: 1; color: var(--accent); transform: translateY(-3px); }
-        .footer-credits { font-size: 0.9rem; opacity: 0.7; letter-spacing: 1px; }
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .footer-socials a { 
+            color: white; 
+            font-size: 1.2rem; 
+            text-decoration: none; 
+            transition: all 0.3s;
+        }
+        .footer-socials a:hover { 
+            color: var(--accent); 
+            transform: scale(1.1);
+        }
 
         @media (max-width: 900px) {
             header { padding: 40px 0; }
@@ -133,6 +145,7 @@
             .header-logo-section { margin-bottom: 30px; justify-content: center; }
             .header-text-section h1 { font-size: 2.2rem; }
             .slide { height: 320px; }
+            .footer-line { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
@@ -172,14 +185,14 @@
 </section>
 
 <footer>
-    <div class="social-links">
-        <a href="https://www.linkedin.com/company/tuo-profilo" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/tuo-canale" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.instagram.com/tuo-profilo" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="mailto:tuamail@esempio.com" title="Email"><i class="fas fa-envelope"></i></a>
-    </div>
-    <div class="footer-credits">
-        &copy; 2026 RoSys Group - All Rights Reserved
+    <div class="footer-line">
+        <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
+        </div>
     </div>
 </footer>
 
@@ -215,7 +228,7 @@
                 const container = document.getElementById(id);
                 container.innerHTML = marked.parse(text);
             }
-        } catch (e) { console.error("Errore caricamento:", file, e); }
+        } catch (e) { console.error("Error loading:", file, e); }
     }
 
     initGallery();
