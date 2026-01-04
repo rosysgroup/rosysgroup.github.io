@@ -24,6 +24,14 @@
     "video": "https://www.youtube.com/watch?v=0SggkFYsgTo"
   },
   {
+    "name": "U-Go",
+    "type": "Unmanned Ground Vehicle",
+    "category": "Ground Robots",
+    "description": "A high-traction tracked rover for autonomous off-road navigation, designed for SLAM and path-planning development in unstructured environments.",
+    "photo": "gallery/robots/cingo.jpg",
+    "video": "#"
+  },
+  {
     "name": "TetheRobot",
     "type": "Unmanned Aerial Vehicle",
     "category": "Aerial Platforms",
