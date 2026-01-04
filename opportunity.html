@@ -26,23 +26,29 @@
         .topics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 60px; }
         .topic-card { 
             background: var(--bg-gray); padding: 25px; border-radius: 12px; border-left: 5px solid var(--accent);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column;
         }
         .topic-card h3 { color: var(--primary); margin-top: 0; }
-        .topic-card ul { padding-left: 20px; font-size: 0.95rem; }
+        .topic-card ul { padding-left: 20px; font-size: 0.95rem; flex-grow: 1; }
         .topic-card li { margin-bottom: 8px; }
+
+        .btn-contact {
+            display: inline-block; padding: 12px 25px; background: var(--accent); color: white;
+            border: none; border-radius: 6px; font-weight: bold; margin-top: 15px; cursor: pointer; transition: 0.3s; text-align: center;
+        }
+        .btn-contact:hover { background: var(--primary); transform: translateY(-2px); }
 
         .markdown-container { margin-top: 40px; overflow-x: auto; }
         .markdown-container table { width: 100%; border-collapse: collapse; margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
         .markdown-container th { background: var(--primary); color: white; padding: 15px; text-align: left; }
         .markdown-container td { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
-        .markdown-container tr:hover { background: #f1f7ff; }
 
-        .btn-contact {
-            display: inline-block; padding: 12px 25px; background: var(--accent); color: white;
-            text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 15px; transition: 0.3s;
-        }
-        .btn-contact:hover { background: var(--primary); }
+        /* Modal Styles */
+        #inquiryModal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .close-modal { position: absolute; right: 20px; top: 15px; cursor: pointer; font-size: 24px; color: #888; }
+        .close-modal:hover { color: #333; }
 
         footer { background: var(--primary); color: white; padding: 30px 20px; text-align: center; margin-top: 80px; }
     </style>
@@ -83,7 +89,7 @@
                 <li>Path planning for autonomous mobile robots</li>
                 <li>LiDAR and Computer Vision sensor fusion</li>
             </ul>
-            <a href="mailto:giuseppe.sutera@unict.it" class="btn-contact">Inquire for this topic</a>
+            <button onclick="openInquiry('Autonomous Navigation')" class="btn-contact">Inquire for this topic</button>
         </div>
         <div class="topic-card">
             <h3>Human-Robot Interaction</h3>
@@ -92,7 +98,7 @@
                 <li>Human intention recognition</li>
                 <li>Shared Control strategies</li>
             </ul>
-            <a href="mailto:giuseppe.sutera@unict.it" class="btn-contact">Inquire for this topic</a>
+            <button onclick="openInquiry('Human-Robot Interaction')" class="btn-contact">Inquire for this topic</button>
         </div>
         <div class="topic-card">
             <h3>Aerial Robotics (Drones)</h3>
@@ -101,7 +107,7 @@
                 <li>Autonomous infrastructure inspection</li>
                 <li>Indoor navigation without GPS</li>
             </ul>
-            <a href="mailto:giuseppe.sutera@unict.it" class="btn-contact">Inquire for this topic</a>
+            <button onclick="openInquiry('Aerial Robotics')" class="btn-contact">Inquire for this topic</button>
         </div>
     </div>
 
@@ -109,6 +115,19 @@
     <p>List of students and projects conducted at the RoSys Lab:</p>
     <div id="students-md-list" class="markdown-container">
         <p>Loading student list...</p>
+    </div>
+</div>
+
+<div id="inquiryModal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle" style="color:var(--primary); margin-top:0;">Inquiry</h2>
+        <p>To apply for a thesis on this topic, please contact us at:</p>
+        <div style="background:#f4f7f9; padding:15px; border-radius:8px; border:1px dashed var(--accent); text-align:center; margin:20px 0;">
+            <strong style="font-size:1.1rem; color:var(--accent);">giuseppe.sutera@unict.it</strong>
+        </div>
+        <p style="font-size:0.9rem; color:#666;">Please attach your CV and a brief description of your background.</p>
+        <button onclick="closeModal()" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold;">Close</button>
     </div>
 </div>
 
@@ -123,13 +142,26 @@
         try {
             const response = await fetch('contents/students.md');
             if (!response.ok) throw new Error('File students.md not found');
-            
             const markdownText = await response.text();
             document.getElementById('students-md-list').innerHTML = marked.parse(markdownText);
         } catch (error) {
             console.error('Error:', error);
-            document.getElementById('students-md-list').innerHTML = "<p style='color:red;'>Error loading student list. Please ensure 'contents/students.md' exists.</p>";
+            document.getElementById('students-md-list').innerHTML = "<p style='color:red;'>Error loading student list.</p>";
         }
+    }
+
+    function openInquiry(topic) {
+        document.getElementById('modalTitle').innerText = "Inquiry: " + topic;
+        document.getElementById('inquiryModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('inquiryModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('inquiryModal');
+        if (event.target == modal) closeModal();
     }
 
     loadStudentsMD();
