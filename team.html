@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team – RoSys Group</title>
+    <meta name="description" content="Meet the faculty, researchers, engineers and students of the RoSys Group robotics lab at the University of Catania (DIEEI).">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Team – RoSys Group">
+    <meta property="og:description" content="Meet the faculty, researchers, engineers and students of the RoSys Group robotics lab.">
+    <meta property="og:image" content="https://rosysgroup.github.io/gallery/LOGO_Rosys_University.png">
+    <meta property="og:url" content="https://rosysgroup.github.io/team.html">
+    <link rel="canonical" href="https://rosysgroup.github.io/team.html">
     <link rel="icon" type="image/png" href="gallery/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
     <style>
         :root {
             --primary: #002147; --accent: #0056b3; --bg: #ffffff; --text: #333; --max-width: 1100px;
@@ -120,9 +127,9 @@
     <div class="footer-line">
         <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
         <div class="footer-socials">
-            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@rosys_group" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/rosys_group/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
             <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
         </div>
     </div>
@@ -138,6 +145,12 @@
         "Alumni"
     ];
 
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str == null ? '' : String(str);
+        return div.innerHTML;
+    }
+
     async function loadTeam() {
         try {
             const response = await fetch('contents/team.json');
@@ -147,31 +160,31 @@
 
             for (const cat of categories) {
                 const catMembers = members.filter(m => m.category === cat);
-                
+
                 if (catMembers.length > 0 || cat === "Alumni") {
                     const section = document.createElement('div');
-                    section.innerHTML = `<h2 class="category-title">${cat}</h2>`;
-                    
+                    section.innerHTML = `<h2 class="category-title">${escapeHtml(cat)}</h2>`;
+
                     const grid = document.createElement('div');
                     grid.className = 'team-grid';
-                    
+
                     catMembers.forEach(m => {
                         let linksHtml = '';
                         Object.entries(m).forEach(([key, value]) => {
                             if (!excludeFields.includes(key) && value && value !== "#" && value !== "") {
                                 const label = key.charAt(0).toUpperCase() + key.slice(1);
-                                linksHtml += `<a href="${value}" target="_blank">${label}</a>`;
+                                linksHtml += `<a href="${escapeHtml(value)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`;
                             }
                         });
 
                         grid.innerHTML += `
                             <div class="member-card">
                                 <div class="photo-wrapper">
-                                    <img src="${m.photo}" alt="${m.name}" onerror="this.src='gallery/team/placeholder.jpg'">
+                                    <img src="${m.photo}" alt="${escapeHtml(m.name)}" onerror="this.onerror=null;this.src='gallery/placeholder.svg'">
                                 </div>
                                 <div class="member-info">
-                                    <div class="member-name">${m.name}</div>
-                                    <div class="member-role">${m.role}</div>
+                                    <div class="member-name">${escapeHtml(m.name)}</div>
+                                    <div class="member-role">${escapeHtml(m.role)}</div>
                                     <div class="member-links">${linksHtml}</div>
                                 </div>
                             </div>

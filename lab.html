@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lab – RoSys Group</title>
+    <meta name="description" content="The RoSys Lab facilities at the Department of Electrical, Electronics and Computer Engineering (DIEEI), University of Catania: equipment, testing areas and location.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lab – RoSys Group">
+    <meta property="og:description" content="RoSys Lab facilities, equipment and testing areas at the University of Catania.">
+    <meta property="og:image" content="https://rosysgroup.github.io/gallery/LOGO_Rosys_University.png">
+    <meta property="og:url" content="https://rosysgroup.github.io/lab.html">
+    <link rel="canonical" href="https://rosysgroup.github.io/lab.html">
     <link rel="icon" type="image/png" href="gallery/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -138,20 +145,7 @@
 <div class="container">
     <div id="lab-intro" class="lab-intro"></div>
     
-    <div class="lab-gallery">
-        <div class="gallery-item">
-            <img src="gallery/lab/lab_main.jpg" alt="Main Research Area" onerror="this.src='gallery/lab/placeholder.jpg'">
-            <div class="gallery-caption">Main Research Area</div>
-        </div>
-        <div class="gallery-item">
-            <img src="gallery/lab/lab_proto.jpg" alt="Electronics Workshop" onerror="this.src='gallery/lab/placeholder.jpg'">
-            <div class="gallery-caption">Electronics Workshop & Prototyping</div>
-        </div>
-        <div class="gallery-item">
-            <img src="gallery/lab/lab_outdoor.jpg" alt="Outdoor Testing Zone" onerror="this.src='gallery/lab/placeholder.jpg'">
-            <div class="gallery-caption">Outdoor Testing Zone</div>
-        </div>
-    </div>
+    <div class="lab-gallery" id="lab-gallery"></div>
 
     <div class="equipment-section">
         <h2>Technical Equipment</h2>
@@ -181,15 +175,21 @@
     <div class="footer-line">
         <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
         <div class="footer-socials">
-            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@rosys_group" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/rosys_group/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
             <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
         </div>
     </div>
 </footer>
 
 <script>
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str == null ? '' : String(str);
+        return div.innerHTML;
+    }
+
     async function loadLabData() {
         try {
             const response = await fetch('contents/lab.json');
@@ -207,13 +207,25 @@
             }
 
             document.getElementById('lab-map').src = data.location_embed;
-            document.getElementById('address-container').innerHTML = 
-                `<strong>Location:</strong> ${data.address}, ${data.cap} ${data.city} (${data.country})`;
+            document.getElementById('address-container').innerHTML =
+                `<strong>Location:</strong> ${escapeHtml(data.address)}, ${escapeHtml(data.cap)} ${escapeHtml(data.city)} (${escapeHtml(data.country)})`;
 
             // Equipment list from JSON
             const eqList = document.getElementById('equipment-list');
             data.equipment.forEach(item => {
-                eqList.innerHTML += `<li>${item}</li>`;
+                eqList.innerHTML += `<li>${escapeHtml(item)}</li>`;
+            });
+
+            // Gallery from JSON
+            const galleryContainer = document.getElementById('lab-gallery');
+            data.gallery.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.innerHTML = `
+                    <img src="${item.src}" alt="${escapeHtml(item.caption)}" onerror="this.onerror=null;this.src='gallery/placeholder.svg'">
+                    <div class="gallery-caption">${escapeHtml(item.caption)}</div>
+                `;
+                galleryContainer.appendChild(div);
             });
 
         } catch (e) { console.error("Error loading lab data:", e); }

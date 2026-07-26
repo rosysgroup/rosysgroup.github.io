@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research – RoSys Group</title>
+    <meta name="description" content="Research areas of the RoSys Group: autonomous navigation, robotics competitions, human-robot interaction, environmental robotics and aerial monitoring.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Research – RoSys Group">
+    <meta property="og:description" content="Autonomous navigation, robotics competitions, human-robot interaction and aerial monitoring research.">
+    <meta property="og:image" content="https://rosysgroup.github.io/gallery/LOGO_Rosys_University.png">
+    <meta property="og:url" content="https://rosysgroup.github.io/research.html">
+    <link rel="canonical" href="https://rosysgroup.github.io/research.html">
     <link rel="icon" type="image/png" href="gallery/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -98,15 +105,21 @@
     <div class="footer-line">
         <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
         <div class="footer-socials">
-            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@rosys_group" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/rosys_group/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
             <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
         </div>
     </div>
 </footer>
 
 <script>
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str == null ? '' : String(str);
+        return div.innerHTML;
+    }
+
     // Fetch and display research projects from JSON file
     async function loadResearch() {
         try {
@@ -119,10 +132,10 @@
                 section.className = 'research-item';
                 section.innerHTML = `
                     <div class="research-image">
-                        <img src="${project.image}" alt="${project.title}" onerror="this.src='gallery/placeholder.jpg'">
+                        <img src="${project.image}" alt="${escapeHtml(project.title)}" onerror="this.onerror=null;this.src='gallery/placeholder.svg'">
                     </div>
                     <div class="research-text">
-                        <h2>${project.title}</h2>
+                        <h2>${escapeHtml(project.title)}</h2>
                         <div class="research-description">${project.content}</div>
                     </div>
                 `;

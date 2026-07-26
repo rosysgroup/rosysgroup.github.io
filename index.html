@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoSys Group – Robotic Systems</title>
+    <meta name="description" content="RoSys Group is the Robotic Systems research lab at the Department of Electrical, Electronics and Computer Engineering (DIEEI), University of Catania, working on autonomous ground and aerial robotics.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="RoSys Group – Robotic Systems">
+    <meta property="og:description" content="Robotic Systems research lab at the University of Catania (DIEEI), working on autonomous ground and aerial robotics.">
+    <meta property="og:image" content="https://rosysgroup.github.io/gallery/LOGO_Rosys_University.png">
+    <meta property="og:url" content="https://rosysgroup.github.io/">
+    <link rel="canonical" href="https://rosysgroup.github.io/">
     <link rel="icon" type="image/png" href="gallery/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
     <style>
         :root {
             --primary: #002147;
@@ -104,6 +111,14 @@
         }
         .next { right: 15px; } .prev { left: 15px; }
 
+        .pause-play {
+            position: absolute; bottom: 15px; right: 15px;
+            background: rgba(255,255,255,0.4); backdrop-filter: blur(5px);
+            color: var(--primary); cursor: pointer; border: none;
+            font-size: 12px; z-index: 10; border-radius: 50%;
+            width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+        }
+
         section { max-width: var(--max-width); margin: 60px auto; padding: 0 20px; }
         h2 { font-size: 2.2rem; border-left: 6px solid var(--primary); padding-left: 20px; color: var(--primary); margin-bottom: 30px; }
 
@@ -174,10 +189,11 @@
     </div>
 </header>
 
-<div class="gallery-container">
+<div class="gallery-container" role="region" aria-label="Photo gallery" onmouseenter="pauseAutoSlide()" onmouseleave="resumeAutoSlide()" onfocusin="pauseAutoSlide()" onfocusout="resumeAutoSlide()">
     <div class="slides" id="gallery-slides"></div>
-    <button class="prev" onclick="manualMove(-1)">&#10094;</button>
-    <button class="next" onclick="manualMove(1)">&#10095;</button>
+    <button class="prev" onclick="manualMove(-1)" aria-label="Previous slide">&#10094;</button>
+    <button class="next" onclick="manualMove(1)" aria-label="Next slide">&#10095;</button>
+    <button class="pause-play" id="pause-play-btn" onclick="togglePause()" aria-label="Pause slideshow">&#10074;&#10074;</button>
 </div>
 
 <section id="news">
@@ -189,40 +205,45 @@
     <div class="footer-line">
         <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
         <div class="footer-socials">
-            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@rosys_group" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/rosys_group/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
             <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
         </div>
     </div>
 </footer>
 
 <script>
-    const totalImages = 15;
+    // Explicit list of images known to exist in gallery/images/ (avoids 404s for missing numbers)
+    const galleryImages = ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg', 'image6.jpg', 'image8.jpg', 'image10.jpg'];
     const slidesContainer = document.getElementById('gallery-slides');
     let currentSlide = 0;
+    let autoSlide = null;
+    let isPaused = false;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function initGallery() {
-        for (let i = 1; i <= totalImages; i++) {
+        galleryImages.forEach(name => {
             const img = document.createElement('img');
-            img.src = `gallery/images/image${i}.jpg`; 
+            img.src = `gallery/images/${name}`;
             img.className = 'slide';
-            
+            img.alt = 'RoSys Group gallery photo';
+
             // If image fails to load, it is removed from the DOM
-            img.onerror = function() { 
+            img.onerror = function() {
                 this.remove();
                 // Adjust position after removal
                 updateSlidePosition();
             };
-            
+
             slidesContainer.appendChild(img);
-        }
+        });
     }
 
     function updateSlidePosition() {
         const slides = document.querySelectorAll('.slide');
         if (slides.length === 0) return;
-        
+
         // Ensure currentSlide is within bounds
         currentSlide = (currentSlide + slides.length) % slides.length;
         slidesContainer.style.transform = `translateX(${-currentSlide * 100}%)`;
@@ -235,14 +256,38 @@
         updateSlidePosition();
     }
 
-    // Auto-advance
-    let autoSlide = setInterval(() => moveSlide(1), 6000);
+    function startAutoSlide() {
+        if (autoSlide || isPaused) return;
+        autoSlide = setInterval(() => moveSlide(1), 6000);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(autoSlide);
+        autoSlide = null;
+    }
+
+    function pauseAutoSlide() { stopAutoSlide(); }
+    function resumeAutoSlide() { if (!isPaused) startAutoSlide(); }
+
+    function togglePause() {
+        isPaused = !isPaused;
+        const btn = document.getElementById('pause-play-btn');
+        if (isPaused) {
+            stopAutoSlide();
+            btn.innerHTML = '&#9654;';
+            btn.setAttribute('aria-label', 'Play slideshow');
+        } else {
+            btn.innerHTML = '&#10074;&#10074;';
+            btn.setAttribute('aria-label', 'Pause slideshow');
+            startAutoSlide();
+        }
+    }
 
     // Manual navigation (resets timer)
     function manualMove(n) {
-        clearInterval(autoSlide);
+        stopAutoSlide();
         moveSlide(n);
-        autoSlide = setInterval(() => moveSlide(1), 6000);
+        resumeAutoSlide();
     }
 
     async function loadMD(id, file) {
@@ -257,6 +302,13 @@
     }
 
     initGallery();
+    if (prefersReducedMotion) {
+        isPaused = true;
+        document.getElementById('pause-play-btn').innerHTML = '&#9654;';
+        document.getElementById('pause-play-btn').setAttribute('aria-label', 'Play slideshow');
+    } else {
+        startAutoSlide();
+    }
     loadMD("header-about-content", "about.md");
     loadMD("news-content", "news.md");
 </script>

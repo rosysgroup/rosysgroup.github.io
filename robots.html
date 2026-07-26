@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robots – RoSys Group</title>
+    <meta name="description" content="Discover the ground and aerial robotic platforms developed by the RoSys Group at the University of Catania, from volcanic exploration rovers to competition drones.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Robots – RoSys Group">
+    <meta property="og:description" content="Ground and aerial robotic platforms developed by the RoSys Group.">
+    <meta property="og:image" content="https://rosysgroup.github.io/gallery/LOGO_Rosys_University.png">
+    <meta property="og:url" content="https://rosysgroup.github.io/robots.html">
+    <link rel="canonical" href="https://rosysgroup.github.io/robots.html">
     <link rel="icon" type="image/png" href="gallery/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -111,15 +118,21 @@
     <div class="footer-line">
         <span>&copy; 2026 RoSys Group - All Rights Reserved</span>
         <div class="footer-socials">
-            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@rosys_group" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/rosys_group/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/rosysgroup/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@rosys_group" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/rosys_group/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
             <a href="mailto:giuseppe.sutera@unict.it"><i class="fas fa-envelope"></i></a>
         </div>
     </div>
 </footer>
 
 <script>
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str == null ? '' : String(str);
+        return div.innerHTML;
+    }
+
     async function loadRobots() {
         try {
             // Added a timestamp to the URL to bypass browser cache
@@ -131,24 +144,24 @@
 
             categories.forEach(cat => {
                 const section = document.createElement('div');
-                section.innerHTML = `<h2 class="category-title">${cat}</h2>`;
-                
+                section.innerHTML = `<h2 class="category-title">${escapeHtml(cat)}</h2>`;
+
                 const grid = document.createElement('div');
                 grid.className = 'robots-grid';
-                
+
                 robots.filter(r => r.category === cat).forEach(r => {
                     grid.innerHTML += `
                         <div class="robot-card">
                             <div class="robot-photo">
-                                <img src="${r.photo}" alt="${r.name}" onerror="this.src='gallery/robots/placeholder.jpg'">
+                                <img src="${r.photo}" alt="${escapeHtml(r.name)}" onerror="this.onerror=null;this.src='gallery/placeholder.svg'">
                             </div>
                             <div class="robot-info">
-                                <div class="robot-type">${r.type}</div>
-                                <div class="robot-name">${r.name}</div>
-                                <div class="robot-desc">${r.description}</div>
+                                <div class="robot-type">${escapeHtml(r.type)}</div>
+                                <div class="robot-name">${escapeHtml(r.name)}</div>
+                                <div class="robot-desc">${escapeHtml(r.description)}</div>
                                 ${r.video && r.video !== "#" && r.video !== "" ? `
                                     <div class="robot-video-link">
-                                        <a href="${r.video}" target="_blank">
+                                        <a href="${escapeHtml(r.video)}" target="_blank" rel="noopener noreferrer">
                                             <i class="fab fa-youtube"></i> WATCH VIDEO
                                         </a>
                                     </div>
